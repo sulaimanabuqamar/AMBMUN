@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <title>{{ committee.name }} - AMBMUN | Committee Detail</title>
+
+    <!-- Your existing styles here -->
+
+{% endblock %}
+
+{% block content %}
+<div class="root" style="padding-top: 172px;">
+    <div class="subroot" style="padding: 20px; min-height: 700px;">
+            <a href="{% url 'committees' %}" style="margin-left: 85px; width: auto;"><h2 style="font-family: inter; font-weight: 500; font-size: 30px; padding-bottom: 5px;"><- Back</h2></a>
+            <h2 class="header">{{ committee.name }} Committee Details</h2>
+            <div style="margin-left: 85px;">
+                <p>{{ committee.about }}</p>
+                <h2>Topic</h2>
+                {{ committee.topic }}
+                </ol>
+                <h2>Meet The Chairs</h2>
+                <div class="cardrow flexcontainer" style="grid-gap: 80px; margin-left: -85px;">
+                    <div class="card" style="padding: 25px;">
+                        <div class="cardcontent">
+                            <div class="centerer" style="margin-top: 25px;">
+                                <img class="cardimage" src="{{ committee.chair_1_id.photo.url }}">
+                            </div>
+                            <h2 class="cardtitle">{{ committee.chair_1_id.name }}</h2>
+                            <p class="cardemail">{{ committee.chair_1_id.email }}</p>
+                            <h3 class="cardbody">{{ committee.chair_1_id.position }}</h3>
+                            <div class="centerer"><button
+                                    style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
+                                    onclick="this.parentElement.parentElement.children[5].hidden = !this.parentElement.parentElement.children[5].hidden;">More
+                                    Info</button></div>
+                            <div class="moreinfo" hidden>{{ committee.chair_1_id.about }}</div>
+                        </div>
+                    </div>
+                    <div class="card" style="padding: 25px;">
+                        <div class="cardcontent">
+                            <div class="centerer" style="margin-top: 25px;">
+                                <img class="cardimage" src="{{ committee.chair_2_id.photo.url }}">
+                            </div>
+                            <h2 class="cardtitle">{{ committee.chair_2_id.name }}</h2>
+                            <p class="cardemail">{{ committee.chair_2_id.email }}</p>
+                            <h3 class="cardbody">{{ committee.chair_2_id.position }}</h3>
+                            <div class="centerer"><button
+                                    style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
+                                    onclick="this.parentElement.parentElement.children[5].hidden = !this.parentElement.parentElement.children[5].hidden;">More
+                                    Info</button></div>
+                            <div class="moreinfo" hidden>{{ committee.chair_2_id.about }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% if committee.cochair_id %}
+                <h2>Meet The Co-Chair</h2>
+                <div class="cardrow flexcontainer" style="grid-gap: 0px; margin-left: -85px;">
+                    <div class="card" style="padding: 25px; margin-right: 0px;">
+                        <div class="cardcontent">
+                            <div class="centerer" style="margin-top: 25px;">
+                                <img class="cardimage" src="{{ committee.cochair_id.photo.url }}">
+                            </div>
+                            <h2 class="cardtitle">{{ committee.cochair_id.name }}</h2>
+                            <p class="cardemail">{{ committee.cochair_id.email }}</p>
+                            <h3 class="cardbody">{{ committee.cochair_id.position }}</h3>
+                            <div class="centerer"><button
+                                    style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
+                                    onclick="this.parentElement.parentElement.children[5].hidden = !this.parentElement.parentElement.children[5].hidden;">More
+                                    Info</button></div>
+                            <div class="moreinfo" hidden>{{ committee.cochair_id.about }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

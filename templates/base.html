@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="{% static 'CSS/common.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/fonts.css' %}">
+    <link rel="icon" href="{% static '../media/images/blacklogotext.png' %}">
+    {% block  style%}
+
+    {% endblock %}
+</head>
+
+<body style="background-image: url('{% static '../media/images/Background.png' %}'); background-repeat: no-repeat; background-size: cover; background-position: center bottom; ">
+    <div class="navbar" id="navbar">
+        <div class="navbarcontent">
+            <div class="subnavbar left">
+                <div id="navbarleft" style="margin-left: 110px; display: flex; align-items: center;">
+                    <a class="subtlelink" href="{% url 'home' %}">
+                        <img style="width: 80px;" src="{% static '../media/images/blacklogotext.png' %}" alt="AMBMUN Logo">
+                    </a>
+                    <svg style="margin-left: 20px; margin-right: 20px;" width="1" height="30" viewBox="0 0 1 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="0.5" y1="30" x2="0.5" stroke="black" />
+                    </svg>
+                    <a class="subtlelink" href="https://www.instagram.com/amb.mun" target="_blank">
+                        <img src="{% static '../media/images/instagramlogo.png' %}" width="24">
+                    </a>
+                </div>
+            </div>
+            <div class="subnavbar right" style="margin-bottom: 15px;">
+                <div id="navbarright" class="flexcontainer" style="margin-bottom: 5px; margin-left: -85px;">
+                    <a onpointerover="document.getElementById('extradetails').style.display = 'none';" href="{% url 'about' %}"
+                        class="headertext">ABOUT</a>
+                    <div style="padding-bottom: 15px;">
+                        <span class="headertext" onmouseover="this.children[0].style.display = 'block';">DETAILS
+                            <div id="extradetails" style="display: none; max-width: 100px; position: absolute; margin-top: 10px; margin-left: -35px;" onmouseleave="this.style.display = 'none';">
+                                <a href="{% url 'schedule' %}" class="dropdownoptions">SCHEDULE</a>
+                                <a href="{% url 'rules' %}" class="dropdownoptions" style="border-top: none;">RULES</a>
+                                <a href="{% url 'committees' %}" class="dropdownoptions" style="border-top: none;">COMMITTEES</a>
+                            </div>
+                        </span>
+                    </div>
+                    <a onpointerover="document.getElementById('extradetails').style.display = 'none';" href="{% url 'contact' %}" class="headertext">CONTACT</a>
+                    <a onpointerover="document.getElementById('extradetails').style.display = 'none';" href="{% url 'faq' %}" class="headertext">FAQ</a>
+                </div>
+                <svg style="margin-left: 0px; margin-right: 50px;min-width: 1px; padding-bottom: 15px;" width="1" height="30" viewBox="0 0 1 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <line x1="0.5" y1="30" x2="0.5" stroke="black" />
+                </svg>
+                <a href="https://forms.gle/6C9AjPgBcnPy3vkd6" target="_blank" style="margin-right: 110px; margin-bottom: 5px; font-weight: bold; font-family: inter;">REGISTER</a>
+            </div>
+        </div>
+        <br>
+        <hr id="navbarseparator" style="margin-left: 100px; margin-right: 100px; border-top: 1px solid #dbdbdb; margin-top: 25px;">
+    </div>
+    <div id="mobilenavbar" class="navbar" hidden>
+        <div class="navbarcontent">
+            <div class="subnavbar left">
+                <button style="margin-left: 50px;" id="mobilenavtoggle"
+                    onclick="toggleDrawer(false)">&equiv;</button>
+                <div id="navbarleft" style="margin-left: 200px; display: flex; align-items: center;">
+                    
+                </div>
+            </div>
+            <div class="subnavbar right">
+                <div id="navbarright" class="flexcontainer" style="margin-bottom: 5px; margin-left: -85px; margin-right: 50px; flex-direction: row;">
+                    <a class="subtlelink" href="{% url 'home' %}">
+                        <img style="width: 70px;" src="{% static '../media/images/blacklogotext.png' %}" alt="AMBMUN Logo">
+                    </a>
+                    <svg style="margin-left: 20px; margin-right: 20px;" width="1" height="30" viewBox="0 0 1 30" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <line x1="0.5" y1="30" x2="0.5" stroke="black" />
+                    </svg>
+                    <a class="subtlelink" href="https://www.instagram.com/amb.mun" target="_blank">
+                        <img src="{% static '../media/images/instagramlogo.png' %}" width="24">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr id="mobilenavbarseparator" style="margin-left: 100px; margin-right: 100px; border-top: 1px solid #dbdbdb; margin-top: 25px;">
+    </div>
+    <div id="mobilenavdrawer" hidden>
+        <div id="mobilenavdrawercontent" hidden>
+            <a href="{% url 'home' %}" class="headertext mobile">HOME</a>
+            <div style="padding-bottom: 5px;" class="headertext mobile">
+                <span class="headertext mobile" onpointerover="var target = this; (async()=>{await sleep(200); target.children[0].children[0].hidden = false;})()">DETAILS
+                    <div class="centerer">
+                        <div style="width: 100%; margin-top: 10px;" hidden class="expandable dropdown"
+                            onpointerleave="var target2 = this; (async()=>{await sleep(210); target2.hidden = true;})()">
+                            <a href="{% url 'schedule' %}" class="dropdownoptions drawer">SCHEDULE</a>
+                            <a href="{% url 'rules' %}" class="dropdownoptions drawer" style="border-top: none;">RULES</a>
+                            <a href="{% url 'committees' %}" class="dropdownoptions drawer" style="border-top: none;">COMMITTEES</a>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <a href="{% url 'about' %}" class="headertext mobile">ABOUT</a>
+            <a href="{% url 'contact' %}" class="headertext mobile">CONTACT</a>
+            <a href="{% url 'faq' %}" class="headertext mobile">FAQ</a>
+            <a href="https://forms.gle/6C9AjPgBcnPy3vkd6"
+                style="font-weight: bold; font-family: inter;" class="headertext mobile">REGISTER</a>
+        </div>
+        <div onclick="toggleDrawer(true)" style="width: 30%; height: 100%; background-color: transparent;"></div>
+    </div>
+    {% block content %}{% endblock %}
+
+    <script>
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+            window.addEventListener("scroll", (event) => {
+                let scroll = this.scrollY;
+                // console.log(scroll);
+                for(var i = 0; i < document.getElementsByClassName("navbar").length; i++) {
+                    document.getElementsByClassName("navbar")[i].classList.toggle("issticky", scroll > 0);
+                    document.getElementById("navbarseparator").hidden = scroll > 0;
+                    document.getElementById("mobilenavbarseparator").hidden = scroll > 0;
+                }
+            });
+    function toggleDrawer(value) {
+        var drawer = document.getElementById('mobilenavdrawer');
+        var drawercontent = document.getElementById('mobilenavdrawercontent');
+        drawer.hidden = value;
+        drawercontent.hidden = value;
+    }
+    </script>
+
+    <footer style="padding: 20px 50px 10px;">
+        <div class="centerer">
+            <div class="flexcontainer" style="color: white; margin-left: 25px; margin-right: 25px;">
+                <div class="halfflexchild">
+                    <div style="display: flex; align-items: center;">
+                        <a href="{% url 'home' %}" style="padding-bottom: 0;">
+                            <img src="{% static '../media/images/ambmunlogowhite.png' %}" alt="AMBMUN Logo" style="padding-bottom: 0;" width="70" height="60">
+                        </a>
+                        <svg style="margin-left: 20px; margin-right: 20px;" width="1" height="30" viewBox="0 0 1 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="0.5" y1="30" x2="0.5" stroke="white" />
+                        </svg>
+                        <a href="https://www.instagram.com/amb.mun" target="_blank" style="padding-bottom: 0;">
+                            <img width="24" src="{% static '../media/images/instagramlogo.png' %}">
+                        </a>
+                    </div>
+                    <p>Al Mawakeb Al Barsha<br> Dubai, UAE</p>
+                    <h3 class="amicfont">Website by <a href="https://amic.amb.sch.ae">AMIC</a></h3>
+                </div>
+                <div class="halfflexchild">
+                    <h3 class="footertext">Al Mawakeb Al Barsha Model United Nations</h3>
+                    <p class="footertext">An exciting opportunity for Mawakeb students to discuss into global issues, creating space for leaders to shine and illuminating important matters. By students, for students—an opportunity to voice your perspectives and concerns.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
