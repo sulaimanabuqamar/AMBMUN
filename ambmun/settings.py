@@ -29,11 +29,11 @@ DEBUG = True
 
 # ALLOWED_HOSTS = []
 # ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ["192.168.0.111", "localhost", "192.168.1.142", "192.168.217.183", '127.0.0.1', 'ambmun.amb.sch.ae', "192.168.250.183"]
+ALLOWED_HOSTS = ["192.168.0.111", "localhost", "192.168.1.142", "192.168.217.183", '127.0.0.1', 'mun.amb.sch.ae', "192.168.250.183"]
 
 CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1",
-    "https://ambmun.amb.sch.ae",
+    "https://mun.amb.sch.ae",
     "http://localhost"]
 
 # Application definition
