@@ -245,6 +245,10 @@ footer {
         font-size: 14;
         font-weight: 200;
         text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+        max-width: 240px;
     }
 
     .cardbody {
