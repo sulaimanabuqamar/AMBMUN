@@ -107,8 +107,9 @@
     {% block content %}{% endblock %}
 
     <script>
-
-        document.body.addEventListener('touchstart', function (event) {
+        var userAgent = navigator.userAgent;
+        if(userAgent.toLowerCase().indexOf("iphone") || userAgent.toLowerCase().indexOf("android")) {
+            document.body.addEventListener('touchstart', function (event) {
                 touchstartX = event.changedTouches[0].screenX;
                 touchstartY = event.changedTouches[0].screenY;
             }, false);
@@ -118,6 +119,7 @@
                 touchendY = event.changedTouches[0].screenY;
                 handleGesture();
             }, false);
+        }
 
 
             function handleGesture() {
