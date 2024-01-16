@@ -122,8 +122,20 @@
     function toggleDrawer(value) {
         var drawer = document.getElementById('mobilenavdrawer');
         var drawercontent = document.getElementById('mobilenavdrawercontent');
-        drawer.hidden = value;
-        drawercontent.hidden = value;
+        if(value) {
+            drawer.style.animation = "navbarmovefront ease-out 0.5s";
+            drawer.style.backgroundColor = "rgba(105, 105, 105, 0)";
+            drawercontent.style.animation = "navbarmovefront ease-out 0.5s";
+        }
+        else {
+            drawer.style.animation = "navbarmoveback ease-out 0.3s";
+            drawer.style.backgroundColor = "rgba(105, 105, 105, 0.5)";
+            drawercontent.style.animation = "navbarmoveback ease-out 0.3s";
+        }
+        setTimeout(function() {
+            drawer.hidden = value;
+            drawercontent.hidden = value;
+        }, 300);
     }
     </script>
 

@@ -101,6 +101,22 @@ svg {
 p, h1, h2, h3, h4, h5, h6, div, span {
     font-family: inter;
 }
+@keyframes navbarmoveback {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+}
+@keyframes navbarmovefront {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
 
 #mobilenavdrawer {
     position: fixed;
@@ -111,12 +127,12 @@ p, h1, h2, h3, h4, h5, h6, div, span {
     background-color: rgba(105, 105, 105, 0.5);
     z-index: 6;
     display: flex;
-    transition: background-color 0.1s ease-in-out, tranform 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, tranform 0.5s ease-in-out;
     transform: translateX(0%);
     /* box-shadow: 20px 0px 50px 1px gray, inset -11px 0px 10px 1px lightgray; */
 }
 #mobilenavdrawer[hidden] {
-    display: block;
+    display: flex;
     background-color: rgba(105, 105, 105, 0);
     transform: translateX(-100%);
 }
@@ -128,12 +144,12 @@ p, h1, h2, h3, h4, h5, h6, div, span {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    transition: transform 0.3s ease-in-out;
+    /* transition: transform 0.3s ease-in-out; */
     transform: translateX(0%);
 }
 #mobilenavdrawercontent[hidden] {
-    display: block;
-    transition: transform 0.3s ease-in-out;
+    display: flex;
+    /* transition: transform 0.3s ease-in-out; */
     transform: translateX(-100%);
 }
 
