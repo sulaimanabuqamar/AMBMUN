@@ -12,9 +12,8 @@ body {
 }
 
 .subroot {
-    background-color: rgba(255,255,255,0.9);
+    
 }
-
 .timeheader {
     font-family: inter;
     font-size: 60px;
@@ -158,5 +157,4 @@ p, h1, h2, h3, h4, h5, h6, div, span {
     grid-gap: 50px;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     justify-items: start;
-    margin-left: 85px;
 }

@@ -2,18 +2,21 @@
 {% load static %}
 
 {% block style %}
-    <title>{{ committee.name }} - AMBMUN | Committee Detail</title>
+<title>{{ committee.name }} - AMBMUN | Committee Detail</title>
 
-    <!-- Your existing styles here -->
+<!-- Your existing styles here -->
 
 {% endblock %}
 
 {% block content %}
 <div class="root" style="padding-top: 172px;">
-    <div class="subroot" style="padding: 20px; min-height: 700px;">
-            <a href="{% url 'committees' %}" style="margin-left: 85px; width: auto;"><h2 style="font-family: inter; font-weight: 500; font-size: 30px; padding-bottom: 5px;"><- Back</h2></a>
-            <h2 class="header">{{ committee.name }} Committee Details</h2>
-            <div style="margin-left: 85px;">
+    <div class="subrootcontainer">
+        <div class="subroot" style="padding: 20px; min-height: 700px;">
+            <a href="{% url 'committees' %}" style="width: auto;" class="desktopmargin">
+                <h2 style="font-family: inter; font-weight: 500; font-size: 30px; padding-bottom: 5px;"><- Back</h2>
+            </a>
+            <h2 class="header desktopmargin">{{ committee.name }} Committee Details</h2>
+            <div class="desktopmargin">
                 <p>{{ committee.about }}</p>
                 <h2>Topic</h2>
                 {{ committee.topic }}
@@ -26,7 +29,8 @@
                                 <img class="cardimage" src="{{ committee.chair_1_id.photo.url }}">
                             </div>
                             <h2 class="cardtitle">{{ committee.chair_1_id.name }}</h2>
-                            <p class="cardemail" title="{{ committee.chair_1_id.email }}">{{ committee.chair_1_id.email }}</p>
+                            <p class="cardemail" title="{{ committee.chair_1_id.email }}">{{ committee.chair_1_id.email
+                                }}</p>
                             <h3 class="cardbody">{{ committee.chair_1_id.position }}</h3>
                             <div class="centerer"><button
                                     style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
@@ -41,7 +45,8 @@
                                 <img class="cardimage" src="{{ committee.chair_2_id.photo.url }}">
                             </div>
                             <h2 class="cardtitle">{{ committee.chair_2_id.name }}</h2>
-                            <p class="cardemail" title="{{ committee.chair_2_id.email }}">{{ committee.chair_2_id.email }}</p>
+                            <p class="cardemail" title="{{ committee.chair_2_id.email }}">{{ committee.chair_2_id.email
+                                }}</p>
                             <h3 class="cardbody">{{ committee.chair_2_id.position }}</h3>
                             <div class="centerer"><button
                                     style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
@@ -60,7 +65,8 @@
                                 <img class="cardimage" src="{{ committee.cochair_id.photo.url }}">
                             </div>
                             <h2 class="cardtitle">{{ committee.cochair_id.name }}</h2>
-                            <p class="cardemail" title="{{ committee.chair_2_id.email }}">{{ committee.cochair_id.email }}</p>
+                            <p class="cardemail" title="{{ committee.chair_2_id.email }}">{{ committee.cochair_id.email
+                                }}</p>
                             <h3 class="cardbody">{{ committee.cochair_id.position }}</h3>
                             <div class="centerer"><button
                                     style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
@@ -73,17 +79,18 @@
                 {% endif %}
             </div>
         </div>
-        <script>
-            var emails = document.getElementsByClassName("cardemail");
-            for(var i = 0; i < emails.length; i++){
-                emails[i].onclick = function(){
-                    navigator.clipboard.writeText(this.innerHTML);
-                    document.title = "Copied to clipboard";
-                    setTimeout(function() {
-                        document.title = "{{ committee.name }} - AMBMUN | Committee Detail";
-                    }, 1000);
-                }
-            }
-        </script>
     </div>
+    <script>
+        var emails = document.getElementsByClassName("cardemail");
+        for (var i = 0; i < emails.length; i++) {
+            emails[i].onclick = function () {
+                navigator.clipboard.writeText(this.innerHTML);
+                document.title = "Copied to clipboard";
+                setTimeout(function () {
+                    document.title = "{{ committee.name }} - AMBMUN | Committee Detail";
+                }, 1000);
+            }
+        }
+    </script>
+</div>
 {% endblock %}

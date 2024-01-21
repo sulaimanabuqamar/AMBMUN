@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block  style%}
+{% block style%}
 <title>AMBMUN | Home</title>
 {% endblock %}
 
 {% block content %}
-    <div class="root" style="padding-top: 172px; background-image: url('{% static '../media/images/Background.png' %}'); background-repeat: no-repeat; background-size: cover; background-position: center bottom;">
+<div class="root"
+    style="padding-top: 172px; background-image: url('{% static '../media/images/Background.png' %}'); background-repeat: no-repeat; background-size: cover; background-position: center bottom;">
+    <div class="subrootcontainer">
         <div class="subroot">
             <h1
                 style="text-align: center; font-weight: 200; font-family: inter; font-size: 60px; margin-top: 0px; padding-top: 50px;">
@@ -35,156 +37,169 @@
             </div>
             <div class="centerer" style="margin-top: 75px; padding-bottom: 150px;">
                 <a href="https://forms.gle/6C9AjPgBcnPy3vkd6" target="_blank" class="subtlelink">
-                <button style="height: 46px;">REGISTRATION</button>
+                    <button style="height: 46px;">REGISTRATION</button>
                 </a>
             </div>
         </div>
-        <script>
-            // ! THE FOLLOWING FUNCTION IS THE COUNTDOWN FUNCTION, YOU WILL SEE ANOTHER COPY OF IT IN THE SETTIMEOUT FUNCTION, THE FIRST COPY (OUTSIDE THE SETTIMEOUT) IS TO SET THE INITIAL VALUES IMMEDIATELY, THE SETTIMEOUT STARTS THE LOOP FUNCTION
-            // BEGIN COUNTDOWN FUNCTION
+    </div>
+    <script>
+        // ! THE FOLLOWING FUNCTION IS THE COUNTDOWN FUNCTION, YOU WILL SEE ANOTHER COPY OF IT IN THE SETTIMEOUT FUNCTION, THE FIRST COPY (OUTSIDE THE SETTIMEOUT) IS TO SET THE INITIAL VALUES IMMEDIATELY, THE SETTIMEOUT STARTS THE LOOP FUNCTION
+        // BEGIN COUNTDOWN FUNCTION
+        var currentdate = new Date();
+        // The next line is the countdown target, CHANGE ONLY THE STRING
+        // Format for the date func: "<month> <date>, <year> <hour in 24h>:<minute>:<second> GMT<+/-><timezone hour difference>:<timezone minute difference>"
+        var countdowndate = new Date("March 1, 2024 15:00:00 GMT+04:00");
+        const diffTime = Math.abs(countdowndate.getTime() - currentdate.getTime());
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        const diffHours = Math.floor(diffTime / (1000 * 60 * 60) % 24);
+        const diffMinutes = Math.floor(diffTime / (1000 * 60) % 60);
+        const diffSeconds = Math.floor(diffTime / 1000 % 60);
+        // if something goes wrong with the countdown uncomment the next comment to check the current output in the console
+        // console.log(diffDays + " days, " + diffHours + " hours, " + diffMinutes + " minutes, and " + diffSeconds + " seconds");
+        document.getElementById("days").innerText = diffDays;
+        document.getElementById("hours").innerText = diffHours;
+        document.getElementById("minutes").innerText = diffMinutes;
+        document.getElementById("seconds").innerText = diffSeconds;
+        // END COUNTDOWN FUNCTION
+        // NOTE ANY CHANGES MADE TO EITHER FUNCTION MUST ALSO BE APPLIED TO THE OTHER AS INACCURACIES MAY OCCUR
+        setInterval(function () {
             var currentdate = new Date();
-            // The next line is the countdown target, CHANGE ONLY THE STRING
-            // Format for the date func: "<month> <date>, <year> <hour in 24h>:<minute>:<second> GMT<+/-><timezone hour difference>:<timezone minute difference>"
             var countdowndate = new Date("March 1, 2024 15:00:00 GMT+04:00");
             const diffTime = Math.abs(countdowndate.getTime() - currentdate.getTime());
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
             const diffHours = Math.floor(diffTime / (1000 * 60 * 60) % 24);
             const diffMinutes = Math.floor(diffTime / (1000 * 60) % 60);
             const diffSeconds = Math.floor(diffTime / 1000 % 60);
-            // if something goes wrong with the countdown uncomment the next comment to check the current output in the console
             // console.log(diffDays + " days, " + diffHours + " hours, " + diffMinutes + " minutes, and " + diffSeconds + " seconds");
             document.getElementById("days").innerText = diffDays;
             document.getElementById("hours").innerText = diffHours;
             document.getElementById("minutes").innerText = diffMinutes;
             document.getElementById("seconds").innerText = diffSeconds;
-            // END COUNTDOWN FUNCTION
-            // NOTE ANY CHANGES MADE TO EITHER FUNCTION MUST ALSO BE APPLIED TO THE OTHER AS INACCURACIES MAY OCCUR
-            setInterval(function () {
-                var currentdate = new Date();
-                var countdowndate = new Date("March 1, 2024 15:00:00 GMT+04:00");
-                const diffTime = Math.abs(countdowndate.getTime() - currentdate.getTime());
-                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-                const diffHours = Math.floor(diffTime / (1000 * 60 * 60) % 24);
-                const diffMinutes = Math.floor(diffTime / (1000 * 60) % 60);
-                const diffSeconds = Math.floor(diffTime / 1000 % 60);
-                // console.log(diffDays + " days, " + diffHours + " hours, " + diffMinutes + " minutes, and " + diffSeconds + " seconds");
-                document.getElementById("days").innerText = diffDays;
-                document.getElementById("hours").innerText = diffHours;
-                document.getElementById("minutes").innerText = diffMinutes;
-                document.getElementById("seconds").innerText = diffSeconds;
-            }, 1000);
-        </script>
-    </div>
-    <!-- this section is not dynamic but editable -->
-    <div class="root"
-        style="padding-bottom: 30px; min-height: 718px; background-image: url('{% static '../media/images/Background2.png' %}'); background-repeat: no-repeat; background-size: cover;">
-        <div class="centerer">
-            <!-- About text -->
-            <div style="width:80%;">
-            <h1 style="font-family: 'Brush Script MT', cursive; font-weight: 100; font-size: 42px; margin-left: 85px;">A Letter From the Board...</h1>
-            <p style="margin-left: 85px; margin-right: 85px;"><i>Dear Esteemed Delegates of AMBMUN.</i><br><br><br>
-                
-                Welcome to the Al Mawakeb Model United Nations' official website. It is with great pleasure that we extend a warm
-            welcome to all visitors, delegates, and faculty advisors to AMBMUN, a platform where knowledge meets diplomacy and
-            global issues are brought to life.
-            <br><br>
-            At AMBMUN, we are dedicated to creating an enriching and memorable experience for all participants. Our team, comprising
-            of dedicated volunteers, chairs, and co-chairs, is committed to ensuring that your time with us is not only valuable but
-            also serves as a cornerstone in your MUN journey.
-            <br><br>
-            As the MUN community continues to thrive and expand, we are honored to be a part of this growth and offer a space where
-            individuals can immerse themselves in the complexities of global politics and international relations.
-            <br><br>
-            Join us as we embark on this journey of growth, learning, and impactful discussions. Together, let's embrace the
-            powerful spirit of MUN and make lasting memories that will resonate with you long after the conference concludes.
-            <br><br><br><b><i>Best Regards,</i></b>
-            <br><br><i>The AMBMUN Team.</i>
-        </p>
-            </div>
+        }, 1000);
+    </script>
+</div>
+<!-- this section is not dynamic but editable -->
+<div class="root"
+    style="padding-bottom: 30px; min-height: 718px; background-image: url('{% static '../media/images/Background2.png' %}'); background-repeat: no-repeat; background-size: cover;">
+    <div class="centerer">
+        <!-- About text -->
+        <div style="width:80%;">
+            <h1 style="font-family: 'Brush Script MT', cursive; font-weight: 100; font-size: 42px;" class="desktopmargin">A
+                Letter From the Board...</h1>
+            <p class="desktopmarginright"><i>Dear Esteemed Delegates of AMBMUN.</i><br><br><br>
+
+                Welcome to the Al Mawakeb Model United Nations' official website. It is with great pleasure that we
+                extend a warm
+                welcome to all visitors, delegates, and faculty advisors to AMBMUN, a platform where knowledge meets
+                diplomacy and
+                global issues are brought to life.
+                <br><br>
+                At AMBMUN, we are dedicated to creating an enriching and memorable experience for all participants. Our
+                team, comprising
+                of dedicated volunteers, chairs, and co-chairs, is committed to ensuring that your time with us is not
+                only valuable but
+                also serves as a cornerstone in your MUN journey.
+                <br><br>
+                As the MUN community continues to thrive and expand, we are honored to be a part of this growth and
+                offer a space where
+                individuals can immerse themselves in the complexities of global politics and international relations.
+                <br><br>
+                Join us as we embark on this journey of growth, learning, and impactful discussions. Together, let's
+                embrace the
+                powerful spirit of MUN and make lasting memories that will resonate with you long after the conference
+                concludes.
+                <br><br><br><b><i>Best Regards,</i></b>
+                <br><br><i>The AMBMUN Team.</i>
+            </p>
         </div>
     </div>
-    <!-- This section is dynamic follow next comments for implementation instructions -->
+</div>
+<!-- This section is dynamic follow next comments for implementation instructions -->
 
 
 {% for club, members in grouped_board.items %}
-    {% if club == "Executive Board" %}
-        <div class="root" style="background-color: #E8E8E8; margin-top: -25px; padding: 20px; width: calc( 100% - 40px)">
-            <h2 style="font-family: inter; font-weight: 500; font-size: 30px; margin-left: 85px;">{{ club }}</h2>
-            <div class="cardrow flexcontainer" style="gap: 100px;">
-                {% for board_member in members %}
-                <div class="card">
-                    <div class="cardcontent">
-                        <div class="centerer" style="margin-top: 20px;">
-                            <img class="cardimage" src="{{ board_member.photo.url }}">
-                        </div>
-                        <h2 class="cardtitle">{{ board_member.name }}</h2>
-                        <!-- <h3 class="cardbody">{{ board_member.role }}</h3> -->
-                        <div class="centerer">
-                            <button style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
-                                onclick="this.parentElement.parentElement.children[3].hidden = !this.parentElement.parentElement.children[3].hidden;">More
-                                Info</button>
-                        </div>
-                        <div class="moreinfo" hidden>{{ board_member.about }}</div>
-                    </div>
-                </div>                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
-{% endfor %}
-
-{% for club, members in grouped_board.items %}
-    {% if club == "AMIC" %}
-        <div class="root" style="background-color: #E8E8E8; margin-top: -25px; padding: 20px; width: calc( 100% - 40px)">
-            <h2 class="header" style="margin-bottom: 0px;">{{ club }}</h2>
-            <h2 class="subheader">The Al Mawakeb Innovation Center designed and built this conference's website, and is handling the media.</h2>
-            <div class="cardrow flexcontainer">
-                {% for board_member in members %}
-                <div class="card small">
-                    <div class="cardcontent">
-                        <div class="centerer" style="margin-top: 20px;">
-                            <img class="cardimage small" src="{{ board_member.photo.url }}">
-                        </div>
-                        <h2 class="cardtitle">{{ board_member.name }}</h2>
-                        <h3 class="cardbody">{{ board_member.role }}</h3>
-                        <div class="centerer">
-                            <button style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
-                                onclick="this.parentElement.parentElement.children[4].hidden = !this.parentElement.parentElement.children[4].hidden;">More
-                                Info</button>
-                        </div>
-                        <div class="moreinfo" hidden>{{ board_member.about }}</div>
-                    </div>
-                </div>                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
-{% endfor %}
-
-{% for club, members in grouped_board.items %}
-    {% if club == "AMRC" %}
-        <div class="root" style="background-color: #E8E8E8; margin-top: -25px; padding: 20px; width: calc( 100% - 40px)">
-            <h2 class="header" style="margin-bottom: 0px;">{{ club }}</h2>
-            <h2 class="subheader">The Al Mawakeb Research Center oversees conference logistics, from hall design to room preparation and registration assistance. </h2>
-            <div class="cardrow flexcontainer">
-                {% for board_member in members %}
-                <div class="card small">
-                    <div class="cardcontent">
-                        <div class="centerer" style="margin-top: 20px;">
-                            <img class="cardimage small" src="{{ board_member.photo.url }}">
-                        </div>
-                        <h2 class="cardtitle">{{ board_member.name }}</h2>
-                        <h3 class="cardbody">{{ board_member.role }}</h3>
-                        <div class="centerer">
-                            <button style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
-                                onclick="this.parentElement.parentElement.children[4].hidden = !this.parentElement.parentElement.children[4].hidden;">More
-                                Info</button>
-                        </div>
-                        <div class="moreinfo" hidden>{{ board_member.about }}</div>
-                    </div>
+{% if club == "Executive Board" %}
+<div class="root" style="background-color: #E8E8E8; margin-top: -25px; padding: 20px; width: calc( 100% - 40px)">
+    <h2 style="font-family: inter; font-weight: 500; font-size: 30px;" class="desktopmargin">{{ club }}</h2>
+    <div class="cardrow flexcontainer" style="gap: 100px;">
+        {% for board_member in members %}
+        <div class="card">
+            <div class="cardcontent">
+                <div class="centerer" style="margin-top: 20px;">
+                    <img class="cardimage" src="{{ board_member.photo.url }}">
                 </div>
-                {% endfor %}
+                <h2 class="cardtitle">{{ board_member.name }}</h2>
+                <!-- <h3 class="cardbody">{{ board_member.role }}</h3> -->
+                <div class="centerer">
+                    <button style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
+                        onclick="this.parentElement.parentElement.children[3].hidden = !this.parentElement.parentElement.children[3].hidden;">More
+                        Info</button>
+                </div>
+                <div class="moreinfo" hidden>{{ board_member.about }}</div>
+            </div>
+        </div> {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+
+{% for club, members in grouped_board.items %}
+{% if club == "AMIC" %}
+<div class="root" style="background-color: #E8E8E8; margin-top: -25px; padding: 20px; width: calc( 100% - 40px)">
+    <h2 class="header desktopmargin" style="margin-bottom: 0px;">{{ club }}</h2>
+    <h2 class="subheader desktopmargin">The Al Mawakeb Innovation Center designed and built this conference's website,
+        and is handling
+        the media.</h2>
+    <div class="cardrow flexcontainer">
+        {% for board_member in members %}
+        <div class="card small">
+            <div class="cardcontent">
+                <div class="centerer" style="margin-top: 20px;">
+                    <img class="cardimage small" src="{{ board_member.photo.url }}">
+                </div>
+                <h2 class="cardtitle">{{ board_member.name }}</h2>
+                <h3 class="cardbody">{{ board_member.role }}</h3>
+                <div class="centerer">
+                    <button style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
+                        onclick="this.parentElement.parentElement.children[4].hidden = !this.parentElement.parentElement.children[4].hidden;">More
+                        Info</button>
+                </div>
+                <div class="moreinfo" hidden>{{ board_member.about }}</div>
+            </div>
+        </div> {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+
+{% for club, members in grouped_board.items %}
+{% if club == "AMRC" %}
+<div class="root" style="background-color: #E8E8E8; margin-top: -25px; padding: 20px; width: calc( 100% - 40px)">
+    <h2 class="header desktopmargin" style="margin-bottom: 0px;">{{ club }}</h2>
+    <h2 class="subheader desktopmargin">The Al Mawakeb Research Center oversees conference logistics, from hall design
+        to room
+        preparation and registration assistance. </h2>
+    <div class="cardrow flexcontainer">
+        {% for board_member in members %}
+        <div class="card small">
+            <div class="cardcontent">
+                <div class="centerer" style="margin-top: 20px;">
+                    <img class="cardimage small" src="{{ board_member.photo.url }}">
+                </div>
+                <h2 class="cardtitle">{{ board_member.name }}</h2>
+                <h3 class="cardbody">{{ board_member.role }}</h3>
+                <div class="centerer">
+                    <button style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
+                        onclick="this.parentElement.parentElement.children[4].hidden = !this.parentElement.parentElement.children[4].hidden;">More
+                        Info</button>
+                </div>
+                <div class="moreinfo" hidden>{{ board_member.about }}</div>
             </div>
         </div>
-    {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
 {% endfor %}
 
 

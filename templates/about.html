@@ -1,19 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block  style%}
+{% block style%}
 <title>AMBMUN | About</title>
 {% endblock %}
 
 {% block content %}
 <div class="root" style="padding-top: 172px;">
-    <div class="subroot" style="padding: 20px; padding-bottom: 400px;">
+    <div class="subrootcontainer">
+        <div class="subroot" style="padding: 20px; padding-bottom: 400px;">
             <!-- Not really dynamic but editable if prefered -->
             <!-- Header -->
-            <h2 class="header">About The AMB Model
+            <h2 class="header desktopmargin">About The AMB Model
                 United Nations</h2>
             <!-- About body text -->
-            <p style="margin-left: 85px; margin-right: 85px;">Al Mawakeb Al Barsha Model United Nations (AMBMUN) is set to make its mark as
+            <p class="desktopmarginright">Al Mawakeb Al Barsha Model United Nations (AMBMUN) is set
+                to make
+                its mark as
                 the inaugural conference in March 2024.
                 Born out of the passion and dedication of Al Mawakeb Al Barsha students, this conference is poised to be
                 a
@@ -42,4 +45,5 @@
             </p>
         </div>
     </div>
+</div>
 {% endblock %}

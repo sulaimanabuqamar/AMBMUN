@@ -66,9 +66,9 @@ body {
 }
 .headertext.mobile {
     margin-right: 0px;
-    margin-top: 50px;
+    margin-top: 25px;
     text-align: center;
-    font-size: 62px;
+    font-size: 38px;
 }
 
 /* a {
@@ -108,8 +108,7 @@ a:hover:after {
 .Title {
     font-family: inter; 
     font-weight: 500; 
-    font-size: 30px; 
-    margin-left: 85px;
+    font-size: 30px;
 }
 .subtlelink {
     transition: none;
@@ -160,7 +159,7 @@ a:hover:after {
     padding: 0px;
     align-items: center;
     justify-content: center;
-    margin-top: 75px;
+    margin-top: 25px;
     border: none;
     width: auto;
     background-color: transparent;
@@ -183,7 +182,7 @@ footer {
 }
 
 .flexchild {
-    flex-basis: calc(100% / 5);
+    flex-basis: calc(100% / 3);
     max-width: 250px;
 }
 #mobilenavtoggle {
@@ -226,13 +225,11 @@ footer {
     font-family: inter;
     font-weight: 400;
     font-size: 30px;
-    margin-left: 85px;
 }
 .subheader {
     font-family: inter;
     font-weight: 300;
     font-size: 16px;
-    margin-left: 85px;
 }
 .cardtitle {
         font-family: inter;
@@ -261,7 +258,6 @@ footer {
 .expandable {
     border-bottom: 1px solid black;
     width: calc(100% - 170px);
-    margin-left: 85px;
     max-height: 150px;
     overflow: hidden;
     transition: 0.3s ease-in-out;
@@ -310,8 +306,36 @@ footer {
     font-weight: 500;
     text-align: center;
 }
-
+.subrootcontainer {
+    background-color: rgba(255,255,255,0.9);
+}
+.desktopmargin {
+    margin-left: 85px;
+}
+.desktopmarginright {
+    margin-left: 85px;
+    margin-right: 85px;
+}
+.schedules {
+    width: 466px;
+    aspect-ratio: 466/468;
+}
 @media (max-width: 1000px) {
+    .desktopmargin {
+        margin-left: 15px;
+    }
+    .desktopmarginright {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+     .subrootcontainer {
+        /* display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%; */
+        background-color: rgba(255,255,255,0.9);
+    } 
     .flexcontainer {
         flex-direction: column;
     }
