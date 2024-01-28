@@ -217,9 +217,7 @@ footer {
     width: 170px;
 }
 .expandableheader {
-    font-family: inter;
-    font-weight: 400;
-    font-size: 20px;
+    margin-bottom: 0px;
 }
 .header {
     font-family: inter;
@@ -293,7 +291,6 @@ footer {
     padding-bottom: 0px;
     max-height: 50px;
 }
-
 .expandable.large[hidden] {
     display: block;
     padding-top: 0px;
@@ -373,12 +370,17 @@ footer {
     .cardimage {
         margin-top: 75px;
         width: 80%;
+        max-width: 327px;
     }
     .expandable {
         max-height: 750px;
+        width: calc(100% - 50px);
+    }
+    .expandable[hidden] {
+        max-height: 85px;
     }
     .expandableheader {
-        font-size: 15px;
+        margin-bottom: 20px;
     }
 }
 footer {

@@ -124,6 +124,7 @@
     {% block content %}{% endblock %}
 
     <script>
+        var rulesTableDetected = false;
         var userAgent = navigator.userAgent;
         if (userAgent.toLowerCase().indexOf("iphone") || userAgent.toLowerCase().indexOf("android")) {
             document.body.addEventListener('touchstart', function (event) {
@@ -134,10 +135,18 @@
             document.body.addEventListener('touchend', function (event) {
                 touchendX = event.changedTouches[0].screenX;
                 touchendY = event.changedTouches[0].screenY;
-                handleGesture();
+                // console.log(event.srcElement.parentElement.parentElement.parentElement.parentElement.classList.contains("rulestablesource"));
+                if(event.srcElement.parentElement != null && event.srcElement.parentElement.parentElement != null && event.srcElement.parentElement.parentElement.parentElement != null && event.srcElement.parentElement.parentElement.parentElement.parentElement != null) {
+                    if(!event.srcElement.parentElement.parentElement.parentElement.parentElement.classList.contains("rulestablesource")) {
+                        handleGesture();
+                    }
+                }
+                else {
+                    handleGesture();
+                }
+                // handleGesture();
             }, false);
         }
-
 
         function handleGesture() {
             if (touchendX < touchstartX - 50 && touchendY >= touchstartY - 50 && touchendY <= touchstartY + 50) {
