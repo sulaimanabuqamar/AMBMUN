@@ -47,3 +47,4 @@ class Committee(models.Model):
     chair_1_id = models.ForeignKey(Chair, on_delete=models.CASCADE, related_name='chair_1_committees')
     chair_2_id = models.ForeignKey(Chair, on_delete=models.CASCADE, related_name='chair_2_committees')
     cochair_id = models.ForeignKey(CoChair, on_delete=models.CASCADE, related_name='cochair_committees', null=True, blank=True)
+    background_guide = models.FileField(upload_to="background_guide", max_length=254, default='background_guide/default.pdf')

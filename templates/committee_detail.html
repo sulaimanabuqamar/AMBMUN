@@ -19,8 +19,14 @@
             <div class="desktopmargin">
                 <p>{{ committee.about }}</p>
                 <h2>Topic</h2>
-                {{ committee.topic }}
-                </ol>
+                <p>{{ committee.topic }}</p>
+
+                <h2>Background Guide</h2>
+                {% if committee.background_guide %}
+                <a href="{{ committee.background_guide.url }}" target="_blank" style="text-transform: none;">Click Here to Download</a>
+                {% else %}
+                <p>Background guide is not available.</p>
+                {% endif %}
                 <h2>Meet The Chairs</h2>
                 <div class="cardrow flexcontainer" style="grid-gap: 80px; ">
                     <div class="card" style="padding: 25px;">
