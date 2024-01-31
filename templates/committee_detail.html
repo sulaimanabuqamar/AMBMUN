@@ -23,9 +23,8 @@
 
                 <h2>Background Guide</h2>
                 {% if committee.background_guide %}
-                <!-- Note: This line of code will only work in mun.amb.sch.ae because 1. it requires https to be hardcoded and 2. the ms office site needs to be able to pull the file from a hosted site to view in the viewer-->
-                <!-- if you change https:// to http:// you can test the download feature only but make sure you change it back to https:// so it works in production -->
-                <a style="text-transform: none;" onclick="createWordViewer('https://' + location.host + '{{ committee.background_guide.url }}');">Click Here to View</a>
+                <!-- Note: The Word View feature only works when the site is running on a hosted server that can be accessed through internet (not localhost), download feature works on all methods of hosting (localhost and mun domain) -->
+                <a style="text-transform: none;" onclick="createWordViewer(location.protocol + '//' + location.host + '{{ committee.background_guide.url }}');">Click Here to View</a>
                 {% else %}
                 <p>Background guide is not available.</p>
                 {% endif %}
