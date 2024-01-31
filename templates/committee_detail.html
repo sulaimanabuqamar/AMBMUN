@@ -23,7 +23,9 @@
 
                 <h2>Background Guide</h2>
                 {% if committee.background_guide %}
-                <a href="{{ committee.background_guide.url }}" target="_blank" style="text-transform: none;">Click Here to Download</a>
+                <!-- Note: This line of code will only work in mun.amb.sch.ae because 1. it requires https to be hardcoded and 2. the ms office site needs to be able to pull the file from a hosted site to view in the viewer-->
+                <!-- if you change https:// to http:// you can test the download feature only but make sure you change it back to https:// so it works in production -->
+                <a style="text-transform: none;" onclick="createWordViewer('https://' + location.host + '{{ committee.background_guide.url }}');">Click Here to View</a>
                 {% else %}
                 <p>Background guide is not available.</p>
                 {% endif %}
@@ -93,6 +95,62 @@
                     document.title = "{{ committee.name }} - AMBMUN | Committee Detail";
                 }, 1000);
             }
+        }
+        function createWordViewer(url) {
+            var popupRoot = document.createElement("div");
+            popupRoot.style.position = "fixed";
+            popupRoot.style.left = "0px";
+            popupRoot.style.top = "0px";
+            popupRoot.style.width = "100%";
+            popupRoot.style.height = "100%";
+            popupRoot.style.zIndex = "11";
+            popupRoot.style.backgroundColor = "rgba(0,0,0,0.5)";
+            var popupSubroot = document.createElement("div");
+            popupSubroot.style.position = "fixed";
+            popupSubroot.style.left = "100px";
+            popupSubroot.style.top = "50px";
+            popupSubroot.style.width = "calc(100% - 200px)";
+            popupSubroot.style.height = "calc(100% - 100px)";
+            popupSubroot.style.zIndex = "12";
+            popupSubroot.style.backgroundColor = "rgba(255,255,255,1)";
+            popupSubroot.style.display = "flex";
+            popupSubroot.style.flexDirection = "column";
+            var toolbar = document.createElement("div");
+            toolbar.style.width = "100%;";
+            toolbar.style.height = "30px";
+            toolbar.style.boxShadow = "0px 0px 5px 1px gray";
+            toolbar.style.display = "flex";
+            toolbar.style.justifyContent = "end";
+            toolbar.style.alignItems = "center";
+            var closeButton = document.createElement("button");
+            closeButton.style = "border: none; background: none; color: red;";
+            closeButton.innerText = "X";
+            closeButton.addEventListener("click", function() {
+                this.parentElement.parentElement.parentElement.remove();
+            });
+            var downloadButton = document.createElement("button");
+            downloadButton.style = "border: none; background: none; font-size: 12px;";
+            downloadButton.innerText = "Download";
+            downloadButton.addEventListener("click", function() {
+                var a = document.createElement("a");
+                a.href = url;
+                a.target = "_blank";
+                a.download = true;
+                a.click();
+                a.remove();
+            });
+            toolbar.appendChild(downloadButton);
+            toolbar.appendChild(closeButton);
+            popupSubroot.appendChild(toolbar);
+            var wordViewer = document.createElement("iframe");
+            wordViewer.src = "https://view.officeapps.live.com/op/embed.aspx?src=" + url;
+            // wordViewer.src = "https://view.officeapps.live.com/op/embed.aspx?src=http%3A%2F%2Fieee802%2Eorg%3A80%2Fsecmail%2FdocIZSEwEqHFr%2Edoc";
+            wordViewer.height = "100%";
+            wordViewer.width = "100%";
+            wordViewer.frameBorder = "0";
+            popupSubroot.appendChild(wordViewer);
+            popupRoot.appendChild(popupSubroot);
+            document.body.appendChild(popupRoot);
         }
     </script>
 </div>
