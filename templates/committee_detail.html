@@ -104,6 +104,11 @@
             popupRoot.style.height = "100%";
             popupRoot.style.zIndex = "11";
             popupRoot.style.backgroundColor = "rgba(0,0,0,0.5)";
+            popupRoot.addEventListener("click", function(event) {
+                if(event.srcElement == this) {
+                    this.remove();
+                }
+            });
             var popupSubroot = document.createElement("div");
             popupSubroot.style.position = "fixed";
             popupSubroot.style.left = "100px";
