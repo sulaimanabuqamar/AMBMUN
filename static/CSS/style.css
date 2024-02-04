@@ -81,7 +81,7 @@ button:active {
     font-size: 14px;
     font-weight: 400;
     padding: 25px;
-    max-height: 450px;
+    max-height: 650px;
     overflow: hidden;
     transition: 0.3s ease-in-out;
     transition-property: max-height, padding;

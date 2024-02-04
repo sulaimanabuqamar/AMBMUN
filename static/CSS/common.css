@@ -355,20 +355,23 @@ footer {
         flex-basis: unset;
     }
     .card {
-        padding: 50px;
+        padding: 00px;
         margin: 50px;
         max-width: none;
+        width: 80%;
     }
     .card.small {
-        padding: 50px;
+        padding: 20px;
         margin: 50px;
         max-width: none;
+        width: 70%;
     }
     .cardimage.small {
         width: 80%;
+        margin-top: 25px;
     }
     .cardimage {
-        margin-top: 75px;
+        margin-top: 25px;
         width: 80%;
         max-width: 327px;
     }
