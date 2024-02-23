@@ -1,6 +1,7 @@
 @echo off
 set /p msg=Enter commit message: 
-git add *
+git add -u
 git commit -m "%msg%"
-git rebase
+REM git rebase
 git push origin main
+
