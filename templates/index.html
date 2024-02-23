@@ -16,7 +16,29 @@
                 <span style="text-align: center; font-weight: 500; font-family: inter; font-size: 41px;">Model United
                     Nations</span>
             </h1>
-            <h3 style="text-align: center; font-size: 20px; font-family: inter; font-weight: 200;">April 19<sup>th</sup> & 20<sup>th</sup>
+            <h3 style="text-align: center; font-size: 20px; font-family: inter; font-weight: 200;" id="homepagedate">April 19<sup>th</sup> & 20<sup>th</sup>
+                <script>
+                    function formatSuperscript(value) {
+                        if(value == 1) {
+                            return "<sup>st</sup>"
+                        }
+                        else if(value == 2) {
+                            return "<sup>nd</sup>"
+                        }
+                        else if(value == 3) {
+                            return "<sup>rd</sup>"
+                        }
+                        else {
+                            return "<sup>th</sup>"
+                        }
+                        
+                    }
+                    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    var hd = document.getElementById("homepagedate");
+                    var day1 = new Date("{{ mun_day_1 }}")
+                    var day2 = new Date("{{ mun_day_2 }}")
+                    hd.innerHTML = months[day1.getMonth()] + " " + day1.getDate() + formatSuperscript(day1.getDate()) + " & " + months[day2.getMonth()] + " " + day2.getDate() + formatSuperscript(day2.getDate());
+                </script>
             </h3>
             <!-- THE HTML PART OF THE CLOCK SHOULD NOT BE MODIFIED, FOR MODIFICATION, MODIFY THE JS PART, CHECK NEXT COMMENT FOR INFO -->
             <div class="centerer">
