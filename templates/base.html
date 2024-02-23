@@ -149,12 +149,12 @@
         }
 
         function handleGesture() {
-            if (touchendX < touchstartX - 50 && touchendY >= touchstartY - 50 && touchendY <= touchstartY + 50) {
+            if (touchendX < touchstartX - 50 && touchendY >= touchstartY - 30 && touchendY <= touchstartY + 30) {
                 console.log('Swiped Left');
                 toggleDrawer(true);
             }
 
-            if (touchendX > touchstartX + 50 && touchendY >= touchstartY - 50 && touchendY <= touchstartY + 50) {
+            if (touchendX > touchstartX + 50 && touchendY >= touchstartY - 30 && touchendY <= touchstartY + 30) {
                 console.log('Swiped Right');
                 toggleDrawer(false);
             }

@@ -9,10 +9,20 @@ def Home(request):
     for club, members in groupby(board, key=lambda x: x.club):
         grouped_board[club] = list(members)
 
-    return render(request, "index.html", {'grouped_board': grouped_board})
+    miscs = Misc.objects.all()        
+    temp = {}
+    for pair in miscs.values():
+        temp[pair["Key"]] = pair["Value"]
+    temp.update({'grouped_board':grouped_board})
+    return render(request, "index.html", temp)
 
 def Schedule(request):
-    return render(request, "schedule.html")
+    miscs = Misc.objects.all()
+    print(miscs.values()[0])
+    temp = {}
+    for pair in miscs.values():
+        temp[pair["Key"]] = pair["Value"]
+    return render(request, "schedule.html", temp)
 
 def Rules(request):
     return render(request, "rules.html")

@@ -16,7 +16,7 @@
                 <span style="text-align: center; font-weight: 500; font-family: inter; font-size: 41px;">Model United
                     Nations</span>
             </h1>
-            <h3 style="text-align: center; font-size: 20px; font-family: inter; font-weight: 200;">March 1ˢᵗ & 2ⁿᵈ
+            <h3 style="text-align: center; font-size: 20px; font-family: inter; font-weight: 200;">April 19<sup>th</sup> & 20<sup>th</sup>
             </h3>
             <!-- THE HTML PART OF THE CLOCK SHOULD NOT BE MODIFIED, FOR MODIFICATION, MODIFY THE JS PART, CHECK NEXT COMMENT FOR INFO -->
             <div class="centerer">
@@ -48,7 +48,7 @@
         var currentdate = new Date();
         // The next line is the countdown target, CHANGE ONLY THE STRING
         // Format for the date func: "<month> <date>, <year> <hour in 24h>:<minute>:<second> GMT<+/-><timezone hour difference>:<timezone minute difference>"
-        var countdowndate = new Date("March 1, 2024 15:00:00 GMT+04:00");
+        var countdowndate = new Date("{{ mun_day_1 }} {{ day1_1_start }} {{ day1_1_start_ampm }} GMT+04:00");
         const diffTime = Math.abs(countdowndate.getTime() - currentdate.getTime());
         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
         const diffHours = Math.floor(diffTime / (1000 * 60 * 60) % 24);
@@ -64,7 +64,7 @@
         // NOTE ANY CHANGES MADE TO EITHER FUNCTION MUST ALSO BE APPLIED TO THE OTHER AS INACCURACIES MAY OCCUR
         setInterval(function () {
             var currentdate = new Date();
-            var countdowndate = new Date("March 1, 2024 15:00:00 GMT+04:00");
+            var countdowndate = new Date("{{ mun_day_1 }} {{ day1_1_start }} {{ day1_1_start_ampm }} GMT+04:00");
             const diffTime = Math.abs(countdowndate.getTime() - currentdate.getTime());
             const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
             const diffHours = Math.floor(diffTime / (1000 * 60 * 60) % 24);
@@ -84,32 +84,9 @@
     <div class="centerer">
         <!-- About text -->
         <div style="width:80%;">
-            <h1 style="font-family: 'Brush Script MT', cursive; font-weight: 100; font-size: 42px;" class="desktopmargin">A
-                Letter From the Board...</h1>
-            <p class="desktopmarginright"><i>Dear Esteemed Delegates of AMBMUN.</i><br><br><br>
-
-                Welcome to the Al Mawakeb Model United Nations' official website. It is with great pleasure that we
-                extend a warm
-                welcome to all visitors, delegates, and faculty advisors to AMBMUN, a platform where knowledge meets
-                diplomacy and
-                global issues are brought to life.
-                <br><br>
-                At AMBMUN, we are dedicated to creating an enriching and memorable experience for all participants. Our
-                team, comprising
-                of dedicated volunteers, chairs, and co-chairs, is committed to ensuring that your time with us is not
-                only valuable but
-                also serves as a cornerstone in your MUN journey.
-                <br><br>
-                As the MUN community continues to thrive and expand, we are honored to be a part of this growth and
-                offer a space where
-                individuals can immerse themselves in the complexities of global politics and international relations.
-                <br><br>
-                Join us as we embark on this journey of growth, learning, and impactful discussions. Together, let's
-                embrace the
-                powerful spirit of MUN and make lasting memories that will resonate with you long after the conference
-                concludes.
-                <br><br><br><b><i>Best Regards,</i></b>
-                <br><br><i>The AMBMUN Team.</i>
+            <h1 style="font-family: 'Brush Script MT', cursive; font-weight: 100; font-size: 42px;" class="desktopmargin">{{ board_letter_title }}</h1>
+            <p class="desktopmarginright">
+                {% autoescape off %}{{ board_letter_body }}{% endautoescape %}
             </p>
         </div>
     </div>

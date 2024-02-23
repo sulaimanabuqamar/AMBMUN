@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Board, FAQ, Chair, CoChair, Committee
+from .models import Board, FAQ, Chair, CoChair, Committee, Misc
 
 class BoardAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'role', 'club')
@@ -36,8 +36,19 @@ class CommitteeAdmin(admin.ModelAdmin):
             kwargs['name'] = 'name'  # Replace 'name' with the actual field representing the chair name
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
+class MiscAdmin(admin.ModelAdmin):
+    list_display = ('Key', 'Value')
+    search_fields = ('Key','Value')
+
+    def Key(self, obj):
+        return obj.Key
+    def Value(self, obj):
+        return obj.Value
+    
+
 admin.site.register(Board, BoardAdmin)
 admin.site.register(FAQ, FAQAdmin)
 admin.site.register(Chair, CoChairAdmin)
 admin.site.register(CoChair, ChairAdmin)
 admin.site.register(Committee, CommitteeAdmin)
+admin.site.register(Misc, MiscAdmin)

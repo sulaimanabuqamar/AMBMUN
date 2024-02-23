@@ -1,5 +1,5 @@
 from django.db import models
-
+import random
 # Create your models here.
 
 class Board(models.Model):
@@ -48,3 +48,22 @@ class Committee(models.Model):
     chair_2_id = models.ForeignKey(Chair, on_delete=models.CASCADE, related_name='chair_2_committees')
     cochair_id = models.ForeignKey(CoChair, on_delete=models.CASCADE, related_name='cochair_committees', null=True, blank=True)
     background_guide = models.FileField(upload_to="background_guide", max_length=254, default='background_guide/default.pdf')
+
+class Misc(models.Model):
+    # id = models.AutoField(primary_key=False)
+    Key = models.CharField(max_length=1000, default=str(random.randint(0, 999999)), primary_key=True)
+    
+    Value = models.CharField(max_length=500000, default="")
+    @classmethod
+    def get_label(cls, key):
+
+        """Get the value of a label via key.
+        If not found, create one with the default value in
+        settings.LABELS."""
+
+        try:
+            return cls.objects.get(key=key).value
+        except:
+            default_value = str(random.randint(0, 999999))
+            cls.objects.create(key=key, value=default_value)
+            return default_value
