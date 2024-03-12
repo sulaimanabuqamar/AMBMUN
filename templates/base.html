@@ -58,8 +58,8 @@
                     height="30" viewBox="0 0 1 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <line x1="0.5" y1="30" x2="0.5" stroke="black" />
                 </svg>
-                <a href="https://forms.gle/6C9AjPgBcnPy3vkd6" target="_blank"
-                    style="margin-right: 110px; margin-bottom: 5px; font-weight: bold; font-family: inter;">REGISTER</a>
+                <a href="{{ registration_link_url }}"
+                    style="margin-right: 110px; margin-bottom: 5px; font-weight: bold; font-family: inter;">{{ registration_link_text }}</a>
             </div>
         </div>
         <br>
@@ -116,8 +116,6 @@
             <a href="{% url 'about' %}" class="headertext mobile">ABOUT</a>
             <a href="{% url 'contact' %}" class="headertext mobile">CONTACT</a>
             <a href="{% url 'faq' %}" class="headertext mobile">FAQ</a>
-            <a href="https://forms.gle/6C9AjPgBcnPy3vkd6" style="font-weight: bold; font-family: inter;"
-                class="headertext mobile">REGISTER</a>
         </div>
         <div onclick="toggleDrawer(true)" style="width: 30%; height: 100%; background-color: transparent;"></div>
     </div>
