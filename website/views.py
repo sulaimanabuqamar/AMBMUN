@@ -1,6 +1,13 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, HttpResponse
+from django.core.handlers.wsgi import WSGIRequest
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import authenticate
+from django.conf import settings
 from .models import *
 from itertools import groupby
+import os
+import json
+import mimetypes
 
 def Home(request):
     board = Board.objects.all().order_by('-club', 'id')
@@ -52,3 +59,98 @@ def Contact(request):
 def Faq(request):
     questions = FAQ.objects.all()
     return render(request, "faq.html", {'questions': questions})
+
+@csrf_exempt
+def Editor(request: WSGIRequest):
+    if request.method == "GET":
+        return HttpResponse("<form action='/Editor/' method='POST'><input type='text' name='username'><input type=password name=password><input type=submit></form>")
+    else:
+        user = authenticate(username=request.POST["username"], password=request.POST["password"])
+        if user is not None:
+            return render(request, "editor.html", {"starting_path": settings.BASE_DIR})
+        else:
+            return HttpResponse("Unauthorized Access", status=403)
+def getFSEntryType(path):
+    if os.path.isdir(path):
+        return "folder"
+    else:
+        return "file"
+def listDir(request): 
+    dir = request.headers["path"]
+    print(dir)
+    if dir == "":
+        dir = str(settings.BASE_DIR) + "/" + dir
+    files = os.listdir(dir)
+    fsentries = []
+    print(str(settings.BASE_DIR))
+    if dir != str(settings.BASE_DIR) + "/" and dir != str(settings.BASE_DIR):
+        fsentries.append({"name": "..", "path": os.path.abspath(os.path.join(dir, "..")), "type": getFSEntryType(os.path.abspath(os.path.join(dir, "..")))})
+    for file in files:
+        fsentry = {"name": file, "path": dir + "/" + file, "type": getFSEntryType(dir + "/" + file)}
+        fsentries.append(fsentry)
+    
+    response = HttpResponse(json.dumps(fsentries))
+    response.headers["Content-Type"] = "application/json"
+    return response
+
+def getFile(request: WSGIRequest):
+    try:    
+        with open(request.GET["path"], 'r') as f:
+            file_data = f.read()
+            # sending response 
+            response = HttpResponse(file_data, content_type=mimetypes.guess_type(request.GET["path"]))
+            response['Content-Disposition'] = 'attachment; filename="' + f.name + '"'
+
+    except IOError:
+        # handle file not exist case here
+        response = HttpResponse('<h1>File not exist</h1>', status=404)
+
+    return response
+@csrf_exempt
+def writeTextFile(request: WSGIRequest):
+    try:    
+        with open(request.headers["path"], 'w') as f:
+            f.write(request.body.decode('utf-8'))
+            # sending response 
+        with open(request.headers["path"], 'r') as f:
+            if(f.read() == request.body.decode('utf-8')):
+                response = HttpResponse("File Written Successfully", status=200)
+            else:
+                response = HttpResponse("File Write Error", status=500)
+
+    except IOError:
+        # handle file not exist case here
+        response = HttpResponse("Unknown IOError Occurred", status=500)
+
+    return response
+
+@csrf_exempt
+def deleteFile(request: WSGIRequest):
+    if request.method == "DELETE":
+        try:    
+            os.remove(request.headers["path"])
+            # sending response 
+            response = HttpResponse("File Deleted Successfully", status=200)
+
+        except IOError:
+            # handle file not exist case here
+            response = HttpResponse("Unknown IOError Occurred", status=500)
+    else:
+        response = HttpResponse("Error: Request sent with " + request.method + " method, to delete files, use the delete method", status=405)
+    return response
+
+@csrf_exempt
+def uploadFile(request):
+    if request.method == "POST":
+        handle_uploaded_file(request.FILES["file"], request.headers["path"] + "/" + request.headers["name"])
+        response = HttpResponse("File Uploaded Successfully", status=200)
+    else:
+        response = HttpResponse("Error: Request sent with " + request.method + " method, to delete files, use the delete method", status=405)
+    return response
+
+    
+@csrf_exempt
+def handle_uploaded_file(f, path):
+    with open(path, "wb+") as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)

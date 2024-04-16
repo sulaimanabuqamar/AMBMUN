@@ -35,7 +35,7 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1",
     "https://mun.amb.sch.ae",
     "http://localhost"]
-
+CORS_ALLOW_CREDENTIALS = True
 # Application definition
 
 INSTALLED_APPS = [

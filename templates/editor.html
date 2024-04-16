@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>AMBMUN File Editor</title>
+    <script src="{% static "ace/src-noconflict/ace.js" %}"></script>
+    <script src="{% static "ace/src-noconflict/ext-modelist.js" %}"></script>
+    <link rel="stylesheet" href="{% static "CSS/editor.css" %}">
+</head>
+<body>
+    <table id="container">
+        <tr>
+            <td colspan="2" class="toolbarcontainer">
+                <div>
+                    <button class="green" onclick="saveTextFile(selectedFile['path'])">Save Current File</button>
+                    <button class="red"  onclick="deleteFile(selectedEntry['path'], selectedEntry['name'])">Delete Current File/Folder</button>
+                    <button class="blue" onclick="document.getElementById('fileread').click();" id="uploadBtn"><input type="file" id="fileread" onchange="uploadFile()" hidden>Upload File</button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="navbarcontainer">
+                <span id="selectedEntryLabel">Selected Item: root</span><br>
+                <span id="selectedFileLabel">Selected File: none</span>
+                <div id="navbar">
+                </div>
+            </td>
+            <td class="editorcontainer">
+                <div id="editor"></div>
+                
+            </td>
+        </tr>
+    </table>
+    <script>
+        var selectedFile = null;
+        var selectedEntry = {type: "folder", path: "{{ starting_path }}", name: "AMBMUN"};
+        var editor = ace.edit("editor");
+        var modelist = ace.require("ace/ext/modelist");
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/javascript");
+
+        function getDir(dir = "") {
+            fetch(location.origin + "/listDir", {headers: {path:dir}})
+            .then((response) => response.json())
+            .then((data) => {
+              // Handle the retrieved data (e.g., store it in a variable)
+              console.log(data);
+              document.getElementById("navbar").innerHTML = "";
+              for(var i = 0; i < data.length; i++) {
+                var entry = document.createElement("div");
+                entry.classList.add("navbaritem");
+                if(data[i]["type"] == "folder") {
+                    entry.onclick = function() {selectedEntry = this.fileObj;document.getElementById("selectedEntryLabel").innerText = "Selected Item: " + selectedEntry["name"]; getDir(this.path)};
+                }
+                else {
+                    entry.onclick = function() {selectedEntry = this.fileObj;document.getElementById("selectedEntryLabel").innerText = "Selected Item: " + selectedEntry["name"]; selectedFile = this.fileObj; document.getElementById("selectedFileLabel").innerText = "Selected File: " + this.fileObj["name"]; getFile(this.path)};
+                }
+                var icon = document.createElement("img");
+                icon.src = (data[i]["type"] == "folder"?"/media/images/FolderIcon.svg":"/media/images/FileIcon.svg");
+                entry.appendChild(icon);
+                var name = document.createElement("label");
+                name.innerText = data[i]["name"];
+                entry.appendChild(name);
+                entry.path = data[i]["path"];
+                entry.fileObj = data[i];
+                document.getElementById("navbar").appendChild(entry);
+              }
+            })
+            .catch((error) => {
+              console.error("Error fetching data:", error);
+            });
+        }
+        getDir();
+        function getFile(path) {
+            fetch(location.origin + "/getFile?path=" + path)
+            .then((response) => { console.log(response); if(response.status != 301 && response.status != 201 &&  response.status != 200) {alert("Error Occured Loading File!\nMake sure you select only text based files"); return;}; editor.session.setMode(modelist.getModeForPath(location.origin + "/getFile?path=" + path).mode); return response.text()})
+            .then((data) => {
+              // Handle the retrieved data (e.g., store it in a variable)
+              console.log(data);
+              editor.setValue(data)
+            })
+            .catch((error) => {
+              console.error("Error fetching data:", error);
+            });
+        }
+        function saveTextFile(path) {
+            fetch(location.origin + "/writeTextFile/", {method: "POST",headers: {path: path},body: editor.getValue(),credentials: 'include'})
+            .then((response) => { if(response.ok) {alert("File Written Successfully");} else {alert("Error Writing to File!\nCheck Devtools Log for more info");} console.log(response); return response.text()})
+            .then((data) => {
+              // Handle the retrieved data (e.g., store it in a variable)
+              console.log(data);
+            })
+            .catch((error) => {
+              console.error("Error fetching data:", error);
+            });
+        }
+        function deleteFile(path, name) {
+            if(confirm("Are you sure you would like to delete " + name + "?")) {
+                fetch(location.origin + "/deleteFile/", {method: "DELETE",headers: {path: path},credentials: 'include'})
+                .then((response) => { if(response.ok) {alert("File Deleted Successfully");} else {alert("Error Deleting File!\nCheck Devtools Log for more info");} console.log(response); return response.text()})
+                .then((data) => {
+                    getDir();
+                  console.log(data);
+                })
+                .catch((error) => {
+                  console.error("Error fetching data:", error);
+                });
+                
+            }
+            else {
+                alert("Delete File/Folder Cancelled");
+            }
+        }
+        function uploadFile() {
+            if(selectedEntry["type"] == "folder") {
+                document.getElementById("uploadBtn").className = "yellow";
+                const fileInput = document.getElementById("fileread");
+                const file = fileInput.files[0]; // Get the first selected file
+                
+                if (file) {
+                    const formData = new FormData();
+                    formData.append("file", file);
+                
+                    // Send the file to the server (e.g., using Fetch API)
+                    fetch("/uploadFile/", {
+                        method: "POST",
+                        body: formData,
+                        headers: {path: selectedEntry["path"], name: file.name}
+                    })
+                        .then(response => {if(response.ok) {alert("File Uploaded Successfully");} else {alert("Error Uploading File!\nCheck Devtools Log for more info");} console.log(response); return response.text()})
+                        .then(data => {
+                            // Handle the server response (e.g., display success message)
+                            document.getElementById("uploadBtn").className = "blue";
+                            console.log("File uploaded successfully:", data);
+                            getDir(selectedEntry["path"]);
+                        })
+                        .catch(error => {
+                            console.error("Error uploading file:", error);
+                        });
+                } else {
+                    console.warn("No file selected.");
+                }
+            }
+            else {
+                alert("Please select a folder to upload to first");
+            }
+        }
+        
+    </script>
+</body>
+</html>

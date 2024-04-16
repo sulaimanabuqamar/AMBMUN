@@ -11,4 +11,10 @@ urlpatterns = [
     path("About/", views.About, name="about"),
     path("Contact/", views.Contact, name="contact"),    
     path("FAQ/", views.Faq, name="faq"),
+    path("Editor/", views.Editor, name="editor"),
+    path("listDir/", views.listDir, name="listdir"),
+    path("getFile/", views.getFile, name="getfile"),
+    path("writeTextFile/", views.writeTextFile, name="writetextfile"),
+    path("deleteFile/", views.deleteFile, name="deleteFile"),
+    path("uploadFile/", views.uploadFile, name="uploadFile"),
 ]

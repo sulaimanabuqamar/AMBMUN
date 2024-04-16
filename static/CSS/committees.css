@@ -1,6 +1,1 @@
-.committees {
-    display: grid;
-    grid-gap: 70px;
-    grid-template-rows: repeat(auto-fit, minmax(250px, 1fr));
-    justify-items: center;
-}
+/* dont use this, there is no implementation for it, its a waste of disk space */
