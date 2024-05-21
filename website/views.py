@@ -6,6 +6,7 @@ from django.conf import settings
 from .models import *
 from itertools import groupby
 import os
+import sys
 import json
 import mimetypes
 
@@ -45,6 +46,30 @@ def Committees(request):
 
     return render(request, 'committees.html', context)
 
+def Gallery(request):
+    albums = Album.objects.all()
+
+    context = {
+        'albums': albums,
+    }
+
+    return render(request, 'gallery.html', context)
+
+def Album_View(request, album_id):
+    album = get_object_or_404(Album, pk=album_id)
+    media_items = []
+    for media_item in MediaItem.objects.all():
+        if media_item.album == album:
+            media_items.append(media_item)
+    return render(request, 'album.html', {'album': album,'media_items':media_items, 'iterator': range(len(media_items))})
+def Album_Json(request, album_id):
+    album = get_object_or_404(Album, pk=album_id)
+    media_items = []
+    for media_item in MediaItem.objects.all():
+        if media_item.album == album:
+            media_items.append({'album': {'album_description': media_item.album.album_description, 'album_name': media_item.album.album_name, 'cover_photo': media_item.album.cover_photo.url, 'id': media_item.album.id}, 'id': media_item.id, 'photo': media_item.photo.url, 'description': media_item.description, 'description_visibility': media_item.description_visibility})
+    return HttpResponse(json.dumps({'album': {'album_description': album.album_description, 'album_name': album.album_name, 'cover_photo': album.cover_photo.url, 'id': album.id},'media_items':media_items}))
+
 def Committee_Detail(request, committee_id):
     committee = get_object_or_404(Committee, pk=committee_id)
     return render(request, 'committee_detail.html', {'committee': committee})
@@ -69,7 +94,7 @@ def Editor(request: WSGIRequest):
         if user is not None:
             return render(request, "editor.html", {"starting_path": settings.BASE_DIR})
         else:
-            return HttpResponse("Unauthorized Access", status=403)
+            return HttpResponse("Unauthorized Access<br><a href='/Editor'><button>Retry</button></a>", status=403)
 def getFSEntryType(path):
     if os.path.isdir(path):
         return "folder"
@@ -115,13 +140,18 @@ def writeTextFile(request: WSGIRequest):
         with open(request.headers["path"], 'r') as f:
             if(f.read() == request.body.decode('utf-8')):
                 response = HttpResponse("File Written Successfully", status=200)
+                restartServer = True
             else:
                 response = HttpResponse("File Write Error", status=500)
+                restartServer = False
 
     except IOError:
         # handle file not exist case here
         response = HttpResponse("Unknown IOError Occurred", status=500)
+        restartServer = True
 
+    if restartServer:
+        os.execv(sys.executable, ['python'] + sys.argv)
     return response
 
 @csrf_exempt

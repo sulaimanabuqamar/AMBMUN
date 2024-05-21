@@ -37,7 +37,12 @@
                     var hd = document.getElementById("homepagedate");
                     var day1 = new Date("{{ mun_day_1 }}")
                     var day2 = new Date("{{ mun_day_2 }}")
-                    hd.innerHTML = months[day1.getMonth()] + " " + day1.getDate() + formatSuperscript(day1.getDate()) + " & " + months[day2.getMonth()] + " " + day2.getDate() + formatSuperscript(day2.getDate());
+                    if(day1.getMonth() != day2.getMonth() || day1.getDate() != day2.getDate() || day1.getFullYear() != day2.getFullYear()) {
+                        hd.innerHTML = months[day1.getMonth()] + " " + day1.getDate() + formatSuperscript(day1.getDate()) + " & " + months[day2.getMonth()] + " " + day2.getDate() + formatSuperscript(day2.getDate());
+                    }
+                    else {
+                        hd.innerHTML = months[day1.getMonth()] + " " + day1.getDate() + formatSuperscript(day1.getDate());
+                    }
                 </script>
             </h3>
             <!-- THE HTML PART OF THE CLOCK SHOULD NOT BE MODIFIED, FOR MODIFICATION, MODIFY THE JS PART, CHECK NEXT COMMENT FOR INFO -->
@@ -78,10 +83,18 @@
         const diffSeconds = Math.floor(diffTime / 1000 % 60);
         // if something goes wrong with the countdown uncomment the next comment to check the current output in the console
         // console.log(diffDays + " days, " + diffHours + " hours, " + diffMinutes + " minutes, and " + diffSeconds + " seconds");
-        document.getElementById("days").innerText = diffDays;
-        document.getElementById("hours").innerText = diffHours;
-        document.getElementById("minutes").innerText = diffMinutes;
-        document.getElementById("seconds").innerText = diffSeconds;
+        if((countdowndate.getTime() - currentdate.getTime()) >= 0) {
+            document.getElementById("days").innerText = diffDays;
+            document.getElementById("hours").innerText = diffHours;
+            document.getElementById("minutes").innerText = diffMinutes;
+            document.getElementById("seconds").innerText = diffSeconds;
+        }
+        else {
+            document.getElementById("days").innerText = 0;
+            document.getElementById("hours").innerText = 0;
+            document.getElementById("minutes").innerText = 0;
+            document.getElementById("seconds").innerText = 0;
+        }
         // END COUNTDOWN FUNCTION
         // NOTE ANY CHANGES MADE TO EITHER FUNCTION MUST ALSO BE APPLIED TO THE OTHER AS INACCURACIES MAY OCCUR
         setInterval(function () {
@@ -93,10 +106,18 @@
             const diffMinutes = Math.floor(diffTime / (1000 * 60) % 60);
             const diffSeconds = Math.floor(diffTime / 1000 % 60);
             // console.log(diffDays + " days, " + diffHours + " hours, " + diffMinutes + " minutes, and " + diffSeconds + " seconds");
+            if((countdowndate.getTime() - currentdate.getTime()) >= 0) {
             document.getElementById("days").innerText = diffDays;
             document.getElementById("hours").innerText = diffHours;
             document.getElementById("minutes").innerText = diffMinutes;
             document.getElementById("seconds").innerText = diffSeconds;
+        }
+        else {
+            document.getElementById("days").innerText = 0;
+            document.getElementById("hours").innerText = 0;
+            document.getElementById("minutes").innerText = 0;
+            document.getElementById("seconds").innerText = 0;
+        }
         }, 1000);
     </script>
 </div>

@@ -50,7 +50,9 @@
                         </span>
                     </div>
                     <a onpointerover="document.getElementById('extradetails').style.display = 'none';"
-                        href="{% url 'contact' %}" class="headertext">CONTACT</a>
+                        href="{% url 'gallery' %}" class="headertext">Gallery</a>
+                    <a onpointerover="document.getElementById('extradetails').style.display = 'none';"
+                        href="{% url 'contact' %}" class="headertext">CONTACT</a>    
                     <a onpointerover="document.getElementById('extradetails').style.display = 'none';"
                         href="{% url 'faq' %}" class="headertext">FAQ</a>
                 </div>
@@ -113,6 +115,7 @@
                     </div>
                 </span>
             </div>
+            <a href="{% url 'gallery' %}" class="headertext mobile">GALLERY</a>
             <a href="{% url 'about' %}" class="headertext mobile">ABOUT</a>
             <a href="{% url 'contact' %}" class="headertext mobile">CONTACT</a>
             <a href="{% url 'faq' %}" class="headertext mobile">FAQ</a>

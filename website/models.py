@@ -49,6 +49,18 @@ class Committee(models.Model):
     cochair_id = models.ForeignKey(CoChair, on_delete=models.CASCADE, related_name='cochair_committees', null=True, blank=True)
     background_guide = models.FileField(upload_to="background_guide", max_length=254, default='background_guide/default.pdf')
 
+class Album(models.Model):
+    id = models.AutoField(primary_key=True)
+    album_name = models.CharField(max_length=10000, default="")
+    album_description = models.CharField(max_length=10000, default="")
+    cover_photo = models.ImageField(upload_to='album_cover_photos/', default="album_cover_photos/placeholder.webp")
+class MediaItem(models.Model):
+    id = models.AutoField(primary_key=True)
+    photo = models.FileField(upload_to='gallery/')
+    description = models.CharField(max_length=10000, default="")
+    description_visibility = models.CharField(max_length=10000, choices=[("none", "Hidden"), ("block", "Shown")], default="block")
+    album = models.ForeignKey(Album, related_name='media_items', on_delete=models.CASCADE)
+
 class Misc(models.Model):
     # id = models.AutoField(primary_key=False)
     Key = models.CharField(max_length=1000, default=str(random.randint(0, 999999)), primary_key=True)

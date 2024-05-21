@@ -157,11 +157,13 @@
         if (day == 1) {
             for (var i = 0; i < 5; i++) {
                 setStatusColor(i, "#292929");
+                // setStatusColor(i, "#35599b");
             }
         }
         else {
             for (var i = 5; i < 9; i++) {
                 setStatusColor(i, "#292929");
+                // setStatusColor(i, "#35599b");
             }
         }
     }
@@ -257,6 +259,10 @@
                 setStatusColor(7, "#35599b");
                 setStatusColor(8, "#35599b");
             }
+        }
+        else if(cd.getDate() > (new Date(day2Date)).getDate() || cd.getMonth() > (new Date(day2Date)).getMonth() || cd.getFullYear() > (new Date(day2Date)).getFullYear()) {
+            fillStatusColors(8);
+            setStatusColor(8, "#35599b");
         }
         else {
             // on the occasion that neither date is met, no modification is made (day1 not complete and day2 not complete images are shown by default as set in the HTML) and current date is reported to the console
