@@ -20,6 +20,9 @@
 
 {% endblock %}
 {% block content %}
+<script>
+    var albumdata = [{% for media_item in media_items %}{photo: "{{media_item.photo.url}}", video: "{{media_item.video}}", media_type: "{{media_item.media_type}}"},{% endfor %}];
+</script>
 <div class="root"
     style="padding-top: 172px; background-image: url('{% static '../media/images/Background.png' %}'); background-repeat: no-repeat; background-size: cover; background-position: center bottom;">
     <div class="subrootcontainer">
@@ -31,10 +34,10 @@
             <div class="cardrow flexcontainer">
                 {% for media_item in media_items %}
                 <div class="flexchild expandable large" style="margin-left: 0px; padding-left: 150px; padding-right: 150px; "
-                    onclick="if(event.srcElement.nodeName != 'BUTTON') { viewMedia('{{ media_item.photo.url }}') }"
+                    onclick="if(event.srcElement.nodeName != 'BUTTON') { viewMedia('{{ media_item.photo.url }}', '{{ media_item.video }}', '{{ media_item.media_type }}') }"
                     hidden>
                     <div class="centerer"><img style="object-fit: contain; object-position: center center;"
-                            src="{{ media_item.photo.url }}" height="300"></div>
+                            src="{{ media_item.photo.url }}" height="300" data-type="{{ media_item.media_type }}"></div>
                     <div class="centerer">
                         <h3 class="comitteename" style="display: {{ media_item.description_visibility }};">{{ media_item.description }}</h3>
                     </div>

@@ -56,7 +56,9 @@ class Album(models.Model):
     cover_photo = models.ImageField(upload_to='album_cover_photos/', default="album_cover_photos/placeholder.webp")
 class MediaItem(models.Model):
     id = models.AutoField(primary_key=True)
-    photo = models.FileField(upload_to='gallery/')
+    photo = models.ImageField(upload_to='gallery/', null=True, blank=True, default="album_cover_photos/placeholder.webp")
+    video = models.URLField(max_length=10000, default="https://www.youtube.com/embed/dQw4w9WgXcQ?si=jijqIduCfHYCQETv", null=True, blank=True)
+    media_type = models.CharField(max_length=70,choices=[("video", "Video"),("image", "Photo")], default="image")
     description = models.CharField(max_length=10000, default="")
     description_visibility = models.CharField(max_length=10000, choices=[("none", "Hidden"), ("block", "Shown")], default="block")
     album = models.ForeignKey(Album, related_name='media_items', on_delete=models.CASCADE)

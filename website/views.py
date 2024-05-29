@@ -67,7 +67,7 @@ def Album_Json(request, album_id):
     media_items = []
     for media_item in MediaItem.objects.all():
         if media_item.album == album:
-            media_items.append({'album': {'album_description': media_item.album.album_description, 'album_name': media_item.album.album_name, 'cover_photo': media_item.album.cover_photo.url, 'id': media_item.album.id}, 'id': media_item.id, 'photo': media_item.photo.url, 'description': media_item.description, 'description_visibility': media_item.description_visibility})
+            media_items.append({'album': {'album_description': media_item.album.album_description, 'album_name': media_item.album.album_name, 'cover_photo': media_item.album.cover_photo.url, 'id': media_item.album.id}, 'id': media_item.id, 'photo': media_item.photo.url, 'video': media_item.video, 'media_type': media_item.media_type, 'description': media_item.description, 'description_visibility': media_item.description_visibility})
     return HttpResponse(json.dumps({'album': {'album_description': album.album_description, 'album_name': album.album_name, 'cover_photo': album.cover_photo.url, 'id': album.id},'media_items':media_items}))
 
 def Committee_Detail(request, committee_id):
