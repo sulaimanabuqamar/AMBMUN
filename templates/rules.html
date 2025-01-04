@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style%}
+<title>AMBMUN | Rules</title>
+
+<style>
+    td {
+        text-align: left;
+    }
+
+    .alternaterow {
+        background-color: #dbdbdb;
+    }
+
+    .primaryrow {
+        background-color: white;
+    }
+</style>
+
+{% endblock %}
+
+{% block content%}
+
+<div class="root" style="padding-top: 172px;">
+    <div class="subrootcontainer">
+        <div class="subroot" style="padding: 20px; padding-bottom: 50px;">
+            <h2 class="header desktopmargin">Model United Nations Rules of Procedure</h2>
+            <p class="desktopmargin">The following are the rules of procedure for AMBMUN 2024 which will be
+                followed in all committees unless specified by
+                the committee chairs.</p>
+            <!-- Again, rules aren't really dynamic but editable when needed, current rules are sourced from https://audmun.org/info.asp?id=4 -->
+            <div style="overflow: scroll;" class="rulestablesource">
+            <table cellspacing="0" cellpadding="20" class="desktopmarginright">
+                <tr style="background-color: #35599b">
+                    <th style="color: white; border-bottom: 1px solid rgb(151, 151, 151); border-top-left-radius: 10px;">
+                        Name of
+                        Motion</th>
+                    <th style="color: white; border-bottom: 1px solid rgb(151, 151, 151);">When it's used</th>
+                    <th style="color: white; border-bottom: 1px solid rgb(151, 151, 151);">What Happens</th>
+                    <th style="color: white; border-bottom: 1px solid rgb(151, 151, 151); border-top-right-radius: 10px;">
+                        Extra
+                        Note(s)</th>
+                </tr>
+                <!-- Make these dynamic each row is a tr with 4 td, first one is for the motion, second is for when it is used, third is the outcome of this motion, fourth is any extra note the motion might have -->
+                <tr class="alternaterow">
+                    <td>Motion to set the agenda "Motion to set the agenda to …"</td>
+                    <td>Used in the very beginning of the debate. It sets the debate to a certain topic to be discussed.
+                    </td>
+                    <td>1 delegate from each side would state points for and against each topic. Voting will then take
+                        place and it will pass/fail accordingly.</td>
+                    <td>Requires a simple majority to pass this motion.</td>
+                </tr>
+                <tr class="primaryrow">
+                    <td>Motion to set the speaker's list "Motion to set the speakers list to [insert topic] to [insert
+                        time] seconds/minutes"</td>
+                    <td>After the agenda has been set, it helps start the debate formally.</td>
+                    <td>The motion is made, and a time for each speaker is set and adhered to, until another motion is
+                        made.</td>
+                    <td>Requires a simple majority in order to pass this motion.</td>
+                </tr>
+                <tr class="alternaterow">
+                    <td>Motion to move to a moderated caucus "Motion to move to moderated caucus of ... minutes of ...
+                        speaker time to discuss ..."</td>
+                    <td>When delegates wish to change the form of the debate to a moderated caucus (see meaning below)
+                        about a certain topic for a certain time.</td>
+                    <td>The overall time for the debate is set and voted upon about a certain topic</td>
+                    <td>Requires a simple majority. Time can be extended by follow-up motions or by the chair if s/he
+                        sees the topic relevant or interesting.</td>
+                </tr>
+                <tr class="primaryrow">
+                    <td>Motion to move to unmoderated caucus "Motion to move to unmoderated caucus about ... for ...
+                        minutes"</td>
+                    <td>Used when delegates wish to change the debate to unmoderated caucus (see meaning below)</td>
+                    <td>The overall time and topic is set. Usually, delegates will use this time to write up
+                        resolutions, clauses, etc.</td>
+                    <td>Requires a simple majority to pass and time can be extended.</td>
+                </tr>
+                <tr class="alternaterow">
+                    <td>Motion to adjourn the meeting "Motion to adjourn/recess the meeting for the purpose of ..."</td>
+                    <td>Used when the delegates wish to end the debating session. Usually used at the end of the day.
+                    </td>
+                    <td>The reason for adjourning of the meeting is stated and voted upon.</td>
+                    <td>Requires a simple majority to pass.</td>
+                </tr>
+                <tr class="primaryrow">
+                    <td>Motion to recess the meeting "Motion to recess the meeting for ..."</td>
+                    <td>Used when the delegates wish to have a break from the debate, usually for lunch break.</td>
+                    <td>The reason to recess and the amount of time is set and it is voted upon.</td>
+                    <td>Requires a simple majority to pass, if the chair sees fit.</td>
+                </tr>
+                <tr class="alternaterow">
+                    <td style="border-bottom-left-radius: 10px;">Motion to move to voting procedure "Motion to move to
+                        voting
+                        procedure on
+                        [resolution/amendment]"</td>
+                    <td>When delegates wish to move on from the debate and vote on the resolution/amendment that is
+                        being discussed.</td>
+                    <td>The committee moves to voting procedures and pass/fail the resolution, if the chair sees fit.
+                    </td>
+                    <td style="border-bottom-right-radius: 10px;">To pass, the chair sees if there are anyone who
+                        seconds and
+                        anyone who opposes the motion, and
+                        moves accordingly. If there are several opposing votes, the motion does not pass. No one is
+                        allowed to leave or enter the room when voting is taking place.</td>
+                </tr>
+            </table></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

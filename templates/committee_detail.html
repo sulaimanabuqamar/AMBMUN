@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<title>{{ committee.name }} - AMBMUN | Committee Detail</title>
+
+<!-- Your existing styles here -->
+
+{% endblock %}
+
+{% block content %}
+<div class="root" style="padding-top: 172px;">
+    <div class="subrootcontainer">
+        <div class="subroot" style="padding: 20px; min-height: 700px;">
+            <a href="{% url 'committees' %}" style="width: auto;" class="desktopmargin">
+                <h2 style="font-family: inter; font-weight: 500; font-size: 30px; padding-bottom: 5px;"><- Back</h2>
+            </a>
+            <h2 class="header desktopmargin">{{ committee.name }} Committee Details</h2>
+            <div class="desktopmargin">
+                <p>{{ committee.about }}</p>
+                <h2>Topic</h2>
+                <p>{{ committee.topic }}</p>
+
+                <h2>Background Guide</h2>
+                {% if committee.background_guide %}
+                <!-- Note: The Word View feature only works when the site is running on a hosted server that can be accessed through internet (not localhost), download feature works on all methods of hosting (localhost and mun domain) -->
+                <a style="text-transform: none;" onclick="createWordViewer(location.protocol + '//' + location.host + '{{ committee.background_guide.url }}');">Click Here to View</a>
+                {% else %}
+                <p>Background guide is not available.</p>
+                {% endif %}
+                <h2>Meet The Chairs</h2>
+                <div class="cardrow flexcontainer" style="grid-gap: 80px; ">
+                    <div class="card" style="padding: 25px;">
+                        <div class="cardcontent">
+                            <div class="centerer" style="margin-top: 25px;">
+                                <img class="cardimage" src="{{ committee.chair_1_id.photo.url }}">
+                            </div>
+                            <h2 class="cardtitle">{{ committee.chair_1_id.name }}</h2>
+                            <p class="cardemail" title="{{ committee.chair_1_id.email }}">{{ committee.chair_1_id.email }}</p>
+                            <h3 class="cardbody">{{ committee.chair_1_id.position }}</h3>
+                            <div class="centerer"><button
+                                    style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
+                                    onclick="this.parentElement.parentElement.children[5].hidden = !this.parentElement.parentElement.children[5].hidden;">More
+                                    Info</button></div>
+                            <div class="moreinfo" hidden>{{ committee.chair_1_id.about }}</div>
+                        </div>
+                    </div>
+                    <div class="card" style="padding: 25px;">
+                        <div class="cardcontent">
+                            <div class="centerer" style="margin-top: 25px;">
+                                <img class="cardimage" src="{{ committee.chair_2_id.photo.url }}">
+                            </div>
+                            <h2 class="cardtitle">{{ committee.chair_2_id.name }}</h2>
+                            <p class="cardemail" title="{{ committee.chair_2_id.email }}">{{ committee.chair_2_id.email }}</p>
+                            <h3 class="cardbody">{{ committee.chair_2_id.position }}</h3>
+                            <div class="centerer"><button
+                                    style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
+                                    onclick="this.parentElement.parentElement.children[5].hidden = !this.parentElement.parentElement.children[5].hidden;">More
+                                    Info</button></div>
+                            <div class="moreinfo" hidden>{{ committee.chair_2_id.about }}</div>
+                        </div>
+                    </div>
+                    {% if committee.chair_3_id %}
+                    <div class="card" style="padding: 25px;">
+                        <div class="cardcontent">
+                            <div class="centerer" style="margin-top: 25px;">
+                                <img class="cardimage" src="{{ committee.chair_3_id.photo.url }}">
+                            </div>
+                            <h2 class="cardtitle">{{ committee.chair_3_id.name }}</h2>
+                            <p class="cardemail" title="{{ committee.chair_3_id.email }}">{{ committee.chair_3_id.email }}</p>
+                            <h3 class="cardbody">{{ committee.chair_3_id.position }}</h3>
+                            <div class="centerer"><button
+                                    style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
+                                    onclick="this.parentElement.parentElement.children[5].hidden = !this.parentElement.parentElement.children[5].hidden;">More
+                                    Info</button></div>
+                            <div class="moreinfo" hidden>{{ committee.chair_3_id.about }}</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var emails = document.getElementsByClassName("cardemail");
+        for (var i = 0; i < emails.length; i++) {
+            emails[i].onclick = function () {
+                navigator.clipboard.writeText(this.innerHTML);
+                document.title = "Copied to clipboard";
+                setTimeout(function () {
+                    document.title = "{{ committee.name }} - AMBMUN | Committee Detail";
+                }, 1000);
+            }
+        }
+        function createWordViewer(url) {
+            var popupRoot = document.createElement("div");
+            popupRoot.style.position = "fixed";
+            popupRoot.style.left = "0px";
+            popupRoot.style.top = "0px";
+            popupRoot.style.width = "100%";
+            popupRoot.style.height = "100%";
+            popupRoot.style.zIndex = "11";
+            popupRoot.style.backgroundColor = "rgba(0,0,0,0.5)";
+            popupRoot.addEventListener("click", function(event) {
+                if(event.srcElement == this) {
+                    this.remove();
+                }
+            });
+            var popupSubroot = document.createElement("div");
+            popupSubroot.style.position = "fixed";
+            popupSubroot.style.left = "100px";
+            popupSubroot.style.top = "50px";
+            popupSubroot.style.width = "calc(100% - 200px)";
+            popupSubroot.style.height = "calc(100% - 100px)";
+            popupSubroot.style.zIndex = "12";
+            popupSubroot.style.backgroundColor = "rgba(255,255,255,1)";
+            popupSubroot.style.display = "flex";
+            popupSubroot.style.flexDirection = "column";
+            var toolbar = document.createElement("div");
+            toolbar.style.width = "100%;";
+            toolbar.style.height = "30px";
+            toolbar.style.boxShadow = "0px 0px 5px 1px gray";
+            toolbar.style.display = "flex";
+            toolbar.style.justifyContent = "end";
+            toolbar.style.alignItems = "center";
+            var closeButton = document.createElement("button");
+            closeButton.style = "border: none; background: none; color: red;";
+            closeButton.innerText = "X";
+            closeButton.addEventListener("click", function() {
+                this.parentElement.parentElement.parentElement.remove();
+            });
+            var downloadButton = document.createElement("button");
+            downloadButton.style = "border: none; background: none; font-size: 12px;";
+            downloadButton.innerText = "Download";
+            downloadButton.addEventListener("click", function() {
+                var a = document.createElement("a");
+                a.href = url;
+                a.target = "_blank";
+                a.download = true;
+                a.click();
+                a.remove();
+            });
+            toolbar.appendChild(downloadButton);
+            toolbar.appendChild(closeButton);
+            popupSubroot.appendChild(toolbar);
+            var wordViewer = document.createElement("iframe");
+            wordViewer.src = "https://docs.google.com/gview?url=" + url + "&embedded=true";
+            // wordViewer.src = "https://view.officeapps.live.com/op/embed.aspx?src=http%3A%2F%2Fieee802%2Eorg%3A80%2Fsecmail%2FdocIZSEwEqHFr%2Edoc";
+            wordViewer.height = "100%";
+            wordViewer.width = "100%";
+            wordViewer.frameBorder = "0";
+            popupSubroot.appendChild(wordViewer);
+            popupRoot.appendChild(popupSubroot);
+            document.body.appendChild(popupRoot);
+        }
+    </script>
+</div>
+{% endblock %}

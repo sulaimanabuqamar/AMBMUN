@@ -1,0 +1,244 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="{% static 'CSS/common.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/fonts.css' %}">
+    <link rel="icon" href="{% static '../media/images/blacklogotext.png' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=0.7">
+    <script>
+        console.warn("AMBMUN Site Version: v20");
+    </script>
+    {% block style%}
+
+    {% endblock %}
+</head>
+
+<body
+    style="background-image: url('{% static '../media/images/Background.png' %}'); background-repeat: no-repeat; background-size: cover; background-position: center bottom; ">
+    <div class="navbar" id="navbar">
+        <div class="navbarcontent">
+            <div class="subnavbar left">
+                <div id="navbarleft" style="margin-left: 110px; display: flex; align-items: center;">
+                    <a class="subtlelink" href="{% url 'home' %}">
+                        <img style="width: 80px;" src="{% static '../media/images/blacklogotext.png' %}"
+                            alt="AMBMUN Logo">
+                    </a>
+                    <svg style="margin-left: 20px; margin-right: 20px;" width="1" height="30" viewBox="0 0 1 30"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="0.5" y1="30" x2="0.5" stroke="black" />
+                    </svg>
+                    <a class="subtlelink" href="https://www.instagram.com/amb.mun" target="_blank">
+                        <img src="{% static '../media/images/instagramlogo.png' %}" width="24">
+                    </a>
+                </div>
+            </div>
+            <div class="subnavbar right" style="margin-bottom: 15px;">
+                <div id="navbarright" class="flexcontainer" style="margin-bottom: 5px; margin-left: -85px; margin-right: 50px;">
+                    <a onpointerover="document.getElementById('extradetails').style.display = 'none';"
+                        href="{% url 'about' %}" class="headertext">ABOUT</a>
+                    <div style="padding-bottom: 15px;">
+                        <span class="headertext" onmouseover="this.children[0].style.display = 'block';">DETAILS
+                            <div id="extradetails"
+                                style="display: none; max-width: 100px; position: absolute; margin-top: 10px; margin-left: -35px;"
+                                onmouseleave="this.style.display = 'none';">
+                                <a href="{% url 'schedule' %}" class="dropdownoptions">SCHEDULE</a>
+                                <a href="{% url 'rules' %}" class="dropdownoptions" style="border-top: none;">RULES</a>
+                                <a href="{% url 'committees' %}" class="dropdownoptions"
+                                    style="border-top: none;">COMMITTEES</a>
+                            </div>
+                        </span>
+                    </div>
+                    <a onpointerover="document.getElementById('extradetails').style.display = 'none';"
+                        href="{% url 'gallery' %}" class="headertext">Gallery</a>
+                    <a onpointerover="document.getElementById('extradetails').style.display = 'none';"
+                        href="{% url 'contact' %}" class="headertext">CONTACT</a>    
+                    <a onpointerover="document.getElementById('extradetails').style.display = 'none';"
+                        href="{% url 'faq' %}" class="headertext">FAQ</a>
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr id="navbarseparator"
+            style="margin-left: 100px; margin-right: 100px; border-top: 1px solid #dbdbdb; margin-top: 25px;">
+    </div>
+    <div id="mobilenavbar" class="navbar" hidden>
+        <div class="navbarcontent">
+            <div class="subnavbar left">
+                <button style="margin-left: 50px;" id="mobilenavtoggle" onclick="toggleDrawer(false)">&equiv;</button>
+                <div id="navbarleft" style="margin-left: 200px; display: flex; align-items: center;">
+
+                </div>
+            </div>
+            <div class="subnavbar right">
+                <div id="navbarright" class="flexcontainer"
+                    style="margin-bottom: 5px; margin-left: -85px; margin-right: 50px; flex-direction: row;">
+                    <a class="subtlelink" href="{% url 'home' %}">
+                        <img style="width: 70px;" src="{% static '../media/images/blacklogotext.png' %}"
+                            alt="AMBMUN Logo">
+                    </a>
+                    <svg style="margin-left: 20px; margin-right: 20px;" width="1" height="30" viewBox="0 0 1 30"
+                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="0.5" y1="30" x2="0.5" stroke="black" />
+                    </svg>
+                    <a class="subtlelink" href="https://www.instagram.com/amb.mun" target="_blank">
+                        <img src="{% static '../media/images/instagramlogo.png' %}" width="24">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr id="mobilenavbarseparator"
+            style="margin-left: 100px; margin-right: 100px; border-top: 1px solid #dbdbdb; margin-top: 25px;">
+    </div>
+    <div id="mobilenavdrawer" hidden>
+        <div id="mobilenavdrawercontent" hidden>
+            <a href="{% url 'home' %}" class="headertext mobile">HOME</a>
+            <div style="padding-bottom: 5px;" class="headertext mobile">
+                <span class="headertext mobile"
+                    onpointerover="var target = this; (async()=>{await sleep(200); target.children[0].children[0].hidden = false;})()">DETAILS
+                    <div class="centerer">
+                        <div style="width: 100%; margin-top: 10px;" hidden class="expandable desktopmargin dropdown"
+                            onpointerleave="var target2 = this; (async()=>{await sleep(210); target2.hidden = true;})()">
+                            <a href="{% url 'schedule' %}" class="dropdownoptions drawer">SCHEDULE</a>
+                            <a href="{% url 'rules' %}" class="dropdownoptions drawer"
+                                style="border-top: none;">RULES</a>
+                            <a href="{% url 'committees' %}" class="dropdownoptions drawer"
+                                style="border-top: none;">COMMITTEES</a>
+                        </div>
+                    </div>
+                </span>
+            </div>
+            <a href="{% url 'gallery' %}" class="headertext mobile">GALLERY</a>
+            <a href="{% url 'about' %}" class="headertext mobile">ABOUT</a>
+            <a href="{% url 'contact' %}" class="headertext mobile">CONTACT</a>
+            <a href="{% url 'faq' %}" class="headertext mobile">FAQ</a>
+        </div>
+        <div onclick="toggleDrawer(true)" style="width: 30%; height: 100%; background-color: transparent;"></div>
+    </div>
+    {% block content %}{% endblock %}
+
+    <script>
+        var rulesTableDetected = false;
+        var userAgent = navigator.userAgent;
+        if (userAgent.toLowerCase().indexOf("iphone") || userAgent.toLowerCase().indexOf("android")) {
+            document.body.addEventListener('touchstart', function (event) {
+                touchstartX = event.changedTouches[0].screenX;
+                touchstartY = event.changedTouches[0].screenY;
+            }, false);
+
+            document.body.addEventListener('touchend', function (event) {
+                touchendX = event.changedTouches[0].screenX;
+                touchendY = event.changedTouches[0].screenY;
+                // console.log(event.srcElement.parentElement.parentElement.parentElement.parentElement.classList.contains("rulestablesource"));
+                if(event.srcElement.parentElement != null && event.srcElement.parentElement.parentElement != null && event.srcElement.parentElement.parentElement.parentElement != null && event.srcElement.parentElement.parentElement.parentElement.parentElement != null) {
+                    if(!event.srcElement.parentElement.parentElement.parentElement.parentElement.classList.contains("rulestablesource")) {
+                        handleGesture();
+                    }
+                }
+                else {
+                    handleGesture();
+                }
+                // handleGesture();
+            }, false);
+        }
+
+        function handleGesture() {
+            if (touchendX < touchstartX - 50 && touchendY >= touchstartY - 30 && touchendY <= touchstartY + 30) {
+                console.log('Swiped Left');
+                toggleDrawer(true);
+            }
+
+            if (touchendX > touchstartX + 50 && touchendY >= touchstartY - 30 && touchendY <= touchstartY + 30) {
+                console.log('Swiped Right');
+                toggleDrawer(false);
+            }
+
+            if (touchendY < touchstartY) {
+                console.log('Swiped Up');
+            }
+
+            if (touchendY > touchstartY) {
+                console.log('Swiped Down');
+            }
+
+            if (touchendY === touchstartY) {
+                console.log('Tap');
+            }
+        }
+
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        window.addEventListener("scroll", (event) => {
+            let scroll = this.scrollY;
+            // console.log(scroll);
+            for (var i = 0; i < document.getElementsByClassName("navbar").length; i++) {
+                document.getElementsByClassName("navbar")[i].classList.toggle("issticky", scroll > 0);
+                document.getElementById("navbarseparator").hidden = scroll > 0;
+                document.getElementById("mobilenavbarseparator").hidden = scroll > 0;
+            }
+        });
+        function toggleDrawer(value) {
+            var drawer = document.getElementById('mobilenavdrawer');
+            var drawercontent = document.getElementById('mobilenavdrawercontent');
+            if (value) {
+                drawer.style.animation = "navbarmovefront ease-out 0.5s";
+                drawer.style.backgroundColor = "rgba(105, 105, 105, 0)";
+                drawercontent.style.animation = "navbarmovefront ease-out 0.5s";
+            }
+            else {
+                drawer.style.animation = "navbarmoveback ease-out 0.3s";
+                drawer.style.backgroundColor = "rgba(105, 105, 105, 0.5)";
+                drawercontent.style.animation = "navbarmoveback ease-out 0.3s";
+            }
+            setTimeout(function () {
+                drawer.hidden = value;
+                drawercontent.hidden = value;
+            }, 300);
+        }
+    </script>
+
+    <footer style="padding: 20px 50px 10px;">
+        <div class="centerer">
+            <div class="flexcontainer" style="color: white; margin-left: 25px; margin-right: 25px;">
+                <div class="halfflexchild">
+                    <div style="display: flex; align-items: center;">
+                        <a href="{% url 'home' %}" style="padding-bottom: 0;">
+                            <img src="{% static '../media/images/ambmunlogowhite.png' %}" alt="AMBMUN Logo"
+                                style="padding-bottom: 0;" width="70" height="60">
+                        </a>
+                        <svg style="margin-left: 20px; margin-right: 20px;" width="1" height="30" viewBox="0 0 1 30"
+                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="0.5" y1="30" x2="0.5" stroke="white" />
+                        </svg>
+                        <a href="https://www.instagram.com/amb.mun" target="_blank" style="padding-bottom: 0;">
+                            <img width="24" src="{% static '../media/images/instagramlogo.png' %}">
+                        </a>
+                    </div>
+                    <p>Al Mawakeb Al Barsha<br> Dubai, UAE</p>
+                    <h3 class="amicfont">Website by <a href="https://amic.amb.sch.ae">AMIC</a></h3>
+                </div>
+                <div class="halfflexchild">
+                    <h3 class="footertext">Al Mawakeb Al Barsha Model United Nations</h3>
+                    <p class="footertext">An exciting opportunity for Mawakeb students to discuss into global issues,
+                        creating space for leaders to shine and illuminating important matters. By students, for
+                        students—an opportunity to voice your perspectives and concerns.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        if (userAgent.toLowerCase().indexOf("iphone") || userAgent.toLowerCase().indexOf("android")) {
+            var subroots = document.getElementsByClassName("subrootcontainer");
+            for (var i = 0; i < subroots.length; i++) {
+                // subroots[i].style.height = window.screen.height + "px";
+            }
+        }
+    </script>
+</body>
+
+</html>

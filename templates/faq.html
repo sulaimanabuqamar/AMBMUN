@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<title>AMBMUN | FAQ</title>
+{% endblock %}
+
+{% block content %}
+<div class="root" style="padding-top: 172px;">
+    <div class="subrootcontainer">
+        <div class="subroot" style="padding: 20px; min-height: 700px; padding-bottom: 100px;">
+            <h2 class="header desktopmargin">Frequently Asked
+                Questions</h2>
+
+            {% for question in questions %}
+            <div class="expandable desktopmargin"
+                onclick="this.hidden = !this.hidden; this.children[0].children[1].children[0].style.transform = this.children[0].children[1].children[0].style.transform == 'rotate(180deg)'? 'rotate(0deg)':'rotate(180deg)';"
+                hidden>
+                <h2 class="desktopmarginheader" style="display: flex; align-items: center;">
+                    <div style="width: 90%;" class="expandableheader">{{ question.question }}</div>
+                    <div style="width: 10%; display: flex; justify-content: end; margin-right: 10px;" class="expandableheader">
+                        <svg width="29" height="15" viewBox="0 0 29 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="0.353553" y1="0.646447" x2="14.2836" y2="14.5765" stroke="black" />
+                            <line x1="13.6482" y1="14.6447" x2="27.755" y2="0.679662" stroke="black" />
+                        </svg>
+                    </div>
+                </h2>
+                <p>{{ question.answer }}</p>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

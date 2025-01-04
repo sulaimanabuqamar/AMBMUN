@@ -1,0 +1,427 @@
+@import url('https://fonts.googleapis.com/css2?family=Stick+No+Bills&display=swap');
+
+body {
+    font-family: inter;
+    margin: 0px;
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    height: 122px;
+    margin: 0px;
+    padding: 0px;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(255,255,255,.9);
+    padding-bottom: 50px;
+    transition-duration: 0.5s;
+    z-index: 5;
+}
+.navbar.issticky {
+    background-color: rgba(255,255,255,1);
+}
+
+.navbarcontent {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.subnavbar {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+}
+.subnavbar.mobile {
+    display: flex;
+    align-items: unset;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.subnavbar.right {
+    justify-content: end;
+    width: 60%;
+}
+
+.subnavbar.left {
+    width: 40%;
+}
+
+#navbarleft {
+    display: flex;
+    align-items: end;
+}
+
+#navbarright {
+    display: flex;
+    align-items: center;
+}
+
+.headertext {
+    margin-right: 50px; 
+    font-weight: 300;
+}
+.headertext.mobile {
+    margin-right: 0px;
+    margin-top: 25px;
+    text-align: center;
+    font-size: 38px;
+}
+
+/* a {
+    text-decoration: none;
+    color: black;
+    transition-duration: 0.1s;
+}
+*/
+a:hover {
+    color: #35599b;
+}
+a {
+  color: black;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-block;
+  padding-bottom: 15px;
+  position: relative;
+}
+a:after {    
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: #35599b;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+a:hover:after { 
+  width: 100%; 
+  left: 0; 
+  color: #35599b;
+}
+.Title {
+    font-family: inter; 
+    font-weight: 500; 
+    font-size: 30px;
+}
+.subtlelink {
+    transition: none;
+    border: none;
+    padding: 0px;
+    background: none;
+    color: black;
+}
+.subtlelink:hover {
+    transition: none;
+    border: none;
+    padding: 0px;
+    background: none;
+    color: black;
+}
+.subtlelink:hover:after {
+    transition: none;
+    border: none;
+    padding: 0px;
+    background: none;
+    color: black;
+}
+.subtlelink:after {
+    transition: none;
+    border: none;
+    padding: 0px;
+    background: none;
+    color: black;
+}
+
+.amicfont {
+    font-family: Stick No Bills;
+}
+
+.dropdownoptions {
+    height: 50px;
+    display: flex;
+    padding: 0px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    width: 142px;
+    background-color: white;
+}
+.dropdownoptions.drawer {
+    height: 50px;
+    display: flex;
+    padding: 0px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+    border: none;
+    width: auto;
+    background-color: transparent;
+}
+
+
+footer {
+    background-color: black;
+}
+
+.footertext {
+    text-align: right;
+}
+
+.flexcontainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.flexchild {
+    flex-basis: calc(100% / 3);
+    max-width: 250px;
+}
+#mobilenavtoggle {
+    display: none;
+}
+#day1, #day2 {
+    height: 500px;
+}
+.halfflexchild {
+    flex-basis: 50%;
+}
+.card {
+    aspect-ratio: 20/27;
+    max-width: 240px;
+    background-color: white;
+    margin-bottom: 50px;
+    flex-basis: calc( 100% / 3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.card.small {
+    max-width: 220px;
+}
+.cardimage {
+    width: 200px;
+    object-fit: cover;
+    object-position: center center;
+}
+.cardimage.small {
+    width: 170px;
+}
+.expandableheader {
+    margin-bottom: 0px;
+}
+.header {
+    font-family: inter;
+    font-weight: 400;
+    font-size: 30px;
+}
+.subheader {
+    font-family: inter;
+    font-weight: 300;
+    font-size: 16px;
+}
+.cardtitle {
+        font-family: inter;
+        font-size: 16px;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .cardemail {
+        font-family: inter;
+        font-size: 14;
+        font-weight: 200;
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+        max-width: 240px;
+    }
+
+    .cardbody {
+        font-family: inter;
+        font-size: 14px;
+        font-weight: 200;
+        text-align: center;
+    }
+.expandable {
+    border-bottom: 1px solid black;
+    width: calc(100% - 170px);
+    max-height: 150px;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+    transition-property: max-height, padding, background-color;
+    transition-duration: 0.3s, 0.3s, 0.1s;
+    cursor: pointer;
+}
+
+.expandable.large {
+    max-height: 1520px;
+    border-bottom: none;
+}
+.expandable.dropdown {
+    max-height: 480px;
+    border: none;
+    margin-left: 0px;
+    transition-property: max-height, padding, background-color;
+}
+.expandable.dropdown[hidden] {
+    display: block;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    max-height: 0px;
+    border: none;
+}
+.expandable:active {
+    background-color: rgba(168, 168, 168, 0.1);
+}
+
+.expandable[hidden] {
+    display: block;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    max-height: 50px;
+}
+.expandable.large[hidden] {
+    display: block;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    max-height: 420px;
+}
+
+.comitteename {
+    font-family: inter;
+    font-weight: 500;
+    text-align: center;
+}
+.albumdesc {
+    font-family: inter;
+    font-weight: 300;
+    text-align: center;
+    font-size: 14px;
+    color: rgb(82, 82, 82);
+    margin-top: 0px;
+}
+.subrootcontainer {
+    background-color: rgba(255,255,255,0.9);
+}
+.desktopmargin {
+    margin-left: 85px;
+}
+.desktopmarginright {
+    margin-left: 85px;
+    margin-right: 85px;
+}
+.schedules {
+    width: 466px;
+    aspect-ratio: 466/468;
+}
+@media (max-width: 1000px) {
+    .desktopmargin {
+        margin-left: 15px;
+    }
+    .desktopmarginright {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+     .subrootcontainer {
+        /* display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%; */
+        background-color: rgba(255,255,255,0.9);
+    } 
+    .flexcontainer {
+        flex-direction: column;
+    }
+    .footertext {
+        text-align: left;
+    }
+    #mobilenavtoggle {
+        display: block;
+    }
+    #navbar {
+        display: none;
+    }
+    #mobilenavbar {
+        display: block;
+    }
+    #day1, #day2 {
+        height: 350px;
+    }
+    .halfflexchild {
+        flex-basis: unset;
+    }
+    .card {
+        padding: 00px;
+        margin: 50px;
+        max-width: none;
+        width: 80%;
+    }
+    .card.small {
+        padding: 20px;
+        margin: 50px;
+        max-width: none;
+        width: 70%;
+    }
+    .cardimage.small {
+        width: 80%;
+        margin-top: 25px;
+    }
+    .cardimage {
+        margin-top: 25px;
+        width: 80%;
+        max-width: 327px;
+    }
+    .expandable {
+        max-height: 750px;
+        width: calc(100% - 50px);
+    }
+    .expandable[hidden] {
+        max-height: 85px;
+    }
+    .expandableheader {
+        margin-bottom: 20px;
+    }
+}
+footer {
+    background-color: black;
+}
+
+footer .flexcontainer {
+    justify-content: space-between;
+}
+footer a {
+    text-decoration: none;
+    color: white;
+    transition-duration: 0.1s;
+}
+
+footer a:hover {
+    color: #35599b;
+}
+
+footer p {
+    color: white;
+    font-family: inter;
+}
+
+footer svg {
+    margin: 0px 10px;
+}
+
+
+img {
+    object-fit: cover;
+    object-position: center center;
+}

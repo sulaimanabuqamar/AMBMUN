@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style%}
+<title>AMBMUN | Home</title>
+{% endblock %}
+
+{% block content %}
+<div class="root"
+    style="padding-top: 172px; background-image: url('{% static '../media/images/Background.png' %}'); background-repeat: no-repeat; background-size: cover; background-position: center bottom;">
+    <div class="subrootcontainer">
+        <div class="subroot">
+            <h1
+                style="text-align: center; font-weight: 200; font-family: inter; font-size: 56px; margin-top: 0px; padding-top: 50px;">
+                Al Mawakeb Al Barsha<br>
+                <span style="text-align: center; font-weight: 500; font-family: inter; font-size: 41px;">Model United
+                    Nations</span>
+            </h1>
+            <h3 style="text-align: center; font-size: 20px; font-family: inter; font-weight: 200;" id="homepagedate">April 19<sup>th</sup> & 20<sup>th</sup>
+                <script>
+                    function formatSuperscript(value) {
+                        if(value == 1) {
+                            return "<sup>st</sup>"
+                        }
+                        else if(value == 2) {
+                            return "<sup>nd</sup>"
+                        }
+                        else if(value == 3) {
+                            return "<sup>rd</sup>"
+                        }
+                        else {
+                            return "<sup>th</sup>"
+                        }
+                        
+                    }
+                    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    var hd = document.getElementById("homepagedate");
+                    var day1 = new Date("{{ mun_day_1 }}")
+                    var day2 = new Date("{{ mun_day_2 }}")
+                    if(day1.getMonth() != day2.getMonth() || day1.getDate() != day2.getDate() || day1.getFullYear() != day2.getFullYear()) {
+                        hd.innerHTML = months[day1.getMonth()] + " " + day1.getDate() + formatSuperscript(day1.getDate()) + " & " + months[day2.getMonth()] + " " + day2.getDate() + formatSuperscript(day2.getDate());
+                    }
+                    else {
+                        hd.innerHTML = months[day1.getMonth()] + " " + day1.getDate() + formatSuperscript(day1.getDate());
+                    }
+                </script>
+            </h3>
+            <!-- THE HTML PART OF THE CLOCK SHOULD NOT BE MODIFIED, FOR MODIFICATION, MODIFY THE JS PART, CHECK NEXT COMMENT FOR INFO -->
+            <div class="centerer">
+                <table>
+                    <tr>
+                        <th class="timeheader" id="days">75</th>
+                        <th class="timeheader" id="hours">16</th>
+                        <th class="timeheader" id="minutes">19</th>
+                        <th class="timeheader" id="seconds" style="padding-right: 0px;">23</th>
+                    </tr>
+                    <tr>
+                        <td>Days</td>
+                        <td>Hours</td>
+                        <td>Minutes</td>
+                        <td style="padding-right: 0px;">Seconds</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="centerer" style="margin-top: 75px; padding-bottom: 150px;">
+                <a href="{{ registration_link_url }}" class="subtlelink">
+                    <button style="height: 46px;">{{ registration_link_text }}</button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script>
+        // ! THE FOLLOWING FUNCTION IS THE COUNTDOWN FUNCTION, YOU WILL SEE ANOTHER COPY OF IT IN THE SETTIMEOUT FUNCTION, THE FIRST COPY (OUTSIDE THE SETTIMEOUT) IS TO SET THE INITIAL VALUES IMMEDIATELY, THE SETTIMEOUT STARTS THE LOOP FUNCTION
+        // BEGIN COUNTDOWN FUNCTION
+        var currentdate = new Date();
+        // The next line is the countdown target, CHANGE ONLY THE STRING
+        // Format for the date func: "<month> <date>, <year> <hour in 24h>:<minute>:<second> GMT<+/-><timezone hour difference>:<timezone minute difference>"
+        var countdowndate = new Date("{{ mun_day_1 }} {{ day1_1_start }} {{ day1_1_start_ampm }} GMT+04:00");
+        const diffTime = Math.abs(countdowndate.getTime() - currentdate.getTime());
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        const diffHours = Math.floor(diffTime / (1000 * 60 * 60) % 24);
+        const diffMinutes = Math.floor(diffTime / (1000 * 60) % 60);
+        const diffSeconds = Math.floor(diffTime / 1000 % 60);
+        // if something goes wrong with the countdown uncomment the next comment to check the current output in the console
+        // console.log(diffDays + " days, " + diffHours + " hours, " + diffMinutes + " minutes, and " + diffSeconds + " seconds");
+        if((countdowndate.getTime() - currentdate.getTime()) >= 0) {
+            document.getElementById("days").innerText = diffDays;
+            document.getElementById("hours").innerText = diffHours;
+            document.getElementById("minutes").innerText = diffMinutes;
+            document.getElementById("seconds").innerText = diffSeconds;
+        }
+        else {
+            document.getElementById("days").innerText = 0;
+            document.getElementById("hours").innerText = 0;
+            document.getElementById("minutes").innerText = 0;
+            document.getElementById("seconds").innerText = 0;
+        }
+        // END COUNTDOWN FUNCTION
+        // NOTE ANY CHANGES MADE TO EITHER FUNCTION MUST ALSO BE APPLIED TO THE OTHER AS INACCURACIES MAY OCCUR
+        setInterval(function () {
+            var currentdate = new Date();
+            var countdowndate = new Date("{{ mun_day_1 }} {{ day1_1_start }} {{ day1_1_start_ampm }} GMT+04:00");
+            const diffTime = Math.abs(countdowndate.getTime() - currentdate.getTime());
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const diffHours = Math.floor(diffTime / (1000 * 60 * 60) % 24);
+            const diffMinutes = Math.floor(diffTime / (1000 * 60) % 60);
+            const diffSeconds = Math.floor(diffTime / 1000 % 60);
+            // console.log(diffDays + " days, " + diffHours + " hours, " + diffMinutes + " minutes, and " + diffSeconds + " seconds");
+            if((countdowndate.getTime() - currentdate.getTime()) >= 0) {
+            document.getElementById("days").innerText = diffDays;
+            document.getElementById("hours").innerText = diffHours;
+            document.getElementById("minutes").innerText = diffMinutes;
+            document.getElementById("seconds").innerText = diffSeconds;
+        }
+        else {
+            document.getElementById("days").innerText = 0;
+            document.getElementById("hours").innerText = 0;
+            document.getElementById("minutes").innerText = 0;
+            document.getElementById("seconds").innerText = 0;
+        }
+        }, 1000);
+    </script>
+</div>
+<!-- this section is not dynamic but editable -->
+<div class="root"
+    style="padding-bottom: 30px; min-height: 718px; background-image: url('{% static '../media/images/Background2.png' %}'); background-repeat: no-repeat; background-size: cover;">
+    <div class="centerer">
+        <!-- About text -->
+        <div style="width:80%;">
+            <h1 style="font-family: 'Brush Script MT', cursive; font-weight: 100; font-size: 42px;" class="desktopmargin">{{ board_letter_title }}</h1>
+            <p class="desktopmarginright">
+                {% autoescape off %}{{ board_letter_body }}{% endautoescape %}
+            </p>
+        </div>
+    </div>
+</div>
+<!-- This section is dynamic follow next comments for implementation instructions -->
+
+
+<div class="root" style="background-color: #E8E8E8; margin-top: -25px; padding: 20px; width: calc(100% - 40px)">
+    <h2 style="font-family: inter; font-weight: 500; font-size: 30px;" class="desktopmargin">Board Members</h2>
+    <div class="cardrow flexcontainer" style="gap: 100px;">
+        {% for board_member in board_members %}
+        <div class="card">
+            <div class="cardcontent">
+                <div class="centerer" style="margin-top: 20px;">
+                    <img class="cardimage" src="{{ board_member.photo.url }}">
+                </div>
+                <h2 class="cardtitle">{{ board_member.name }}</h2>
+                <!-- <h3 class="cardbody">{{ board_member.role }}</h3> -->
+                <div class="centerer">
+                    <button style="height: 14px; font-size: 8px; margin-top: 10px; margin-bottom: 10px;"
+                        onclick="this.parentElement.parentElement.children[3].hidden = !this.parentElement.parentElement.children[3].hidden;">More
+                        Info</button>
+                </div>
+                <div class="moreinfo" hidden>{{ board_member.about }}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

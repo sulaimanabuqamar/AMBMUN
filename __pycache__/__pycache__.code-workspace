@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../ambmun"
+		},
+		{
+			"path": "../media"
+		},
+		{
+			"path": "../myenv"
+		},
+		{
+			"path": "../static"
+		},
+		{
+			"path": "../static_root"
+		},
+		{
+			"path": "../templates"
+		},
+		{
+			"path": "../website"
+		}
+	]
+}

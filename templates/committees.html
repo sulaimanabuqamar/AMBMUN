@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style%}
+<title>AMBMUN | Committees</title>
+
+<style>
+    td {
+        text-align: left;
+    }
+
+    .alternaterow {
+        background-color: #dbdbdb;
+    }
+
+    .primaryrow {
+        background-color: white;
+    }
+</style>
+
+{% endblock %}
+{% block content %}
+<div class="root"
+    style="padding-top: 172px; background-image: url('{% static '../media/images/Background.png' %}'); background-repeat: no-repeat; background-size: cover; background-position: center bottom;">
+    <div class="subrootcontainer">
+        <div class="subroot" style="padding: 20px; min-height: 700px;">
+            <h2 class="header desktopmargin">Committees</h2>
+            <div class="cardrow flexcontainer">
+                {% for committee in committees %}
+                <div class="flexchild expandable large" style="margin-left: 0px;"
+                    onclick="if(event.srcElement.nodeName != 'BUTTON') {window.location.href='/Committees/{{ committee.id }}/';}"
+                    hidden>
+                    <div class="centerer"><img style="object-fit: contain; object-position: center center;"
+                            src="{{ committee.photo.url }}" width="225" height="200"></div>
+                    <div class="centerer">
+                        <h3 class="comitteename">{{ committee.name }}</h3>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

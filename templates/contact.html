@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<title>AMBMUN | Contact</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="root"
+    style="padding-top: 172px; background-image: url('{% static '../media/images/Background.png' %}'); background-repeat: no-repeat; background-size: cover; background-position: center bottom;">
+    <div class="subrootcontainer">
+        <div class="subroot" style="padding: 20px; padding-bottom: 100px;">
+            <h2 class="header desktopmargin">Contact Us</h2>
+            <p class="desktopmargin">If you would like to get any more information, please contact us at <a
+                    href="mailto:ymun2024@gmail.com"
+                    style="text-decoration: underline; text-transform: lowercase;">ymun2025@gmail.com</a>
+            </p>
+            <div class="contact-container desktopmargin" style="margin-left: 80px;">
+                {% for board_member in board_members %}
+                <table>
+                    <tr>
+                        <td style="padding-right: 0px;">
+                            <img src="{{ board_member.photo.url }}"
+                                style="width: 100px; height: 100px; margin-right: 25px;">
+                        </td>
+                        <td style="text-align: left; margin-left: -25px;">
+                            <p style="font-family: inter; font-weight: 400; font-size: 18px;">{{ board_member.name  }}<br>
+                                {% comment %} <span style="font-family: inter; font-weight: 200; font-size: 14px;">{{ board_member.role }}</span> {% endcomment %}
+                            </p>
+                            <a href="mailto:{{ board_member.email }}"
+                                style="font-family: inter; font-weight: 300; font-size: 14px; text-transform: lowercase;">{{ board_member.email }}</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

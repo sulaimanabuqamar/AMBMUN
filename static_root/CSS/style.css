@@ -1,0 +1,214 @@
+body {
+    font-family: inter;
+    margin: 0px;
+}
+.navbar {
+    position: fixed;
+    width: 100%;
+    height: 122px;
+    margin: 0px;
+    padding: 0px;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(255,255,255,.9);
+    padding-bottom: 50px;
+    transition-duration: 0.5s;
+    z-index: 5;
+}
+.navbar.issticky {
+    background-color: rgba(255,255,255,1);
+}
+.navbarcontent {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.subnavbar {
+    height: 100%;
+    display: flex;
+    align-items: end;
+}
+.subnavbar.right {
+    justify-content: end;
+    align-items: end;
+    margin-bottom: 40px;
+    width: 60%;
+}
+.subnavbar.left {
+    width: 40%;
+}
+#navbarleft {
+    display: flex;
+    align-items: center;
+}
+#navbarright {
+    display: flex;
+    align-items: center;
+}
+a {
+    text-decoration: none;
+    color: black;
+    transition-duration: 0.1s;
+}
+a:hover {
+    /* text-decoration: underline; */
+    color: #35599b;
+}
+.root {
+    width: 100%;
+    height: 100%;
+    padding-top: 120px;
+}
+.subroot {
+    background-color: rgba(255,255,255,0.9);
+}
+.timeheader {
+    font-family: inter;
+    font-size: 60px;
+    font-weight: 300;
+    padding-right: 30px;
+}
+td {
+    text-align: center;
+    padding-right: 30px;
+    font-family: inter;
+    font-size: 15px;
+    font-weight: 300;
+}
+button {
+    background-color: rgba(255,255,255,0.5);
+    border: 1px solid black;
+    aspect-ratio: 235/46;
+    font-family: inter;
+    font-weight: 300;
+    color: black;
+    font-size: 20px;
+    letter-spacing: 2px;
+    cursor: pointer;
+    box-shadow: none;
+    transition-duration: 0.3s;
+}
+button:hover {
+    box-shadow: 0px 2px 5px 2px lightgray;
+    transform: translateY(-2px);
+}
+button:active {
+    box-shadow: none;
+    transform: translateY(0px);
+}
+.centerer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.cardrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 75px;
+}
+.card {
+    aspect-ratio: 20/27;
+    max-width: 300px;
+    background-color: white;
+    margin-bottom: 50px;
+    flex-basis: calc( 100% / 3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin-right: 100px; */
+}
+.cardcontent {
+    display: block;
+}
+.cardimage {
+    aspect-ratio: 100/133;
+}
+.cardtitle {
+    font-family: inter;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+}
+.cardbody {
+    font-family: inter;
+    font-size: 14px;
+    font-weight: 200;
+    text-align: center;
+}
+.moreinfo {
+    font-family: inter;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 25px;
+    max-height: 250px;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+    transition-property: max-height, padding;
+}
+.moreinfo[hidden] {
+    display: block;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    max-height: 0px;
+}
+.expandable {
+    border-bottom: 1px solid black;
+    width: calc(100% - 170px);
+    margin-left: 85px;
+    max-height: 450px;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+    transition-property: max-height, padding, background-color;
+    transition-duration: 0.3s, 0.3s, 0.1s;
+    cursor: pointer;
+}
+.expandable.large {
+    max-height: 1520px;
+    border-bottom: none;
+}
+.expandable:active {
+    background-color: rgba(168, 168, 168, 0.1);
+}
+.expandable[hidden] {
+    display: block;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    max-height: 50px;
+}
+.expandable.large[hidden] {
+    display: block;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    max-height: 420px;
+}
+.dropdownoptions {
+    width: 140px;
+    height: 50px;
+    background-color:white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+}
+.flexchild {
+    flex-basis: calc( 100% / 3);
+}
+.comitteename {
+    font-family: inter;
+    font-weight: 500;
+    text-align: center;
+}
+.albumdesc {
+    font-family: inter;
+        font-weight: 200;
+        text-align: center;
+        font-size: 14px;
+        color: gray;
+}
+footer {
+    background-color: black;
+}
+p, h1, h2, h3, h4, h5, h6, div, span {
+    font-family: inter;
+}
