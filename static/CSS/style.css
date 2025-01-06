@@ -235,6 +235,9 @@ p, h1, h2, h3, h4, h5, h6, div, span {
     border: 1px solid black;
     height: 32px;
 }
+.schedule-vertical-line {
+    display: none;
+}
 .schedule-circle {
     width: 30px;
     aspect-ratio: 1/1;

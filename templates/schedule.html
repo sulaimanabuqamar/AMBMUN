@@ -30,8 +30,12 @@
 
                             <div class="schedule-centerer" style="flex-direction: column; justify-content: start;">
                                 <div style="width: 100%; display: flex; align-items: center;">
-                                    <div class="schedule-bubble" id="bubble{{forloop.counter|add:"-1"}}">{{schedulentry.start_time|time:"g:i A"}} - {{schedulentry.end_time|time:"g:i A"}}</div>
-                                    <div class="schedule-line" id="line{{forloop.counter|add:"-1"}}"></div>
+                                    {% with forloop.parentloop.counter|add:"-1" as parentLoop  %}
+                                    {% with scheduleDateLengths|get_item:parentLoop as val %}
+                                    <div class="schedule-bubble" id="bubble{{forloop.counter|add:val}}">{{schedulentry.start_time|time:"g:i A"}} - {{schedulentry.end_time|time:"g:i A"}}</div>
+                                    <div class="schedule-line" id="line{{forloop.counter|add:val}}"></div>
+                                    {% endwith %}
+                                    {% endwith %}
                                 </div>
                                 <div style="width: 100%; text-align: left; margin-top: 5px;">{{schedulentry.event_title}}</div>
                             </div>
@@ -40,12 +44,14 @@
                         </div>
                         <div style="height: 100%; margin-top: 19px;">
                             {% for schedulentry in date %}
-                            <div class="schedule-circle" id="circle{{forloop.counter|add:"-1"}}"></div>
-                            {% if forloop.counter < date|length %}
+                            {% with forloop.parentloop.counter|add:"-1" as parentLoop  %}
+                            {% with scheduleDateLengths|get_item:parentLoop as val %}
+                            <div class="schedule-circle" id="circle{{forloop.counter|add:val}}"></div>
                             <div class="centerer">
-                                <div class="schedule-vertical-line" id="verline{{forloop.counter}}"></div>
+                                <div class="schedule-vertical-line{% if not forloop.counter < date|length %}-invisible{% endif %}" id="verline{{forloop.counter|add:val}}"></div>
                             </div>
-                            {% endif %}
+                            {% endwith %}
+                            {% endwith %}
                             {% endfor %}
                         </div>
                         <div class="schedules" style="width: 238px; margin-top: 11px;">
@@ -53,8 +59,12 @@
                             {% if forloop.counter|divisibleby:2 %}
                             <div class="schedule-centerer" style="flex-direction: column; justify-content: start;">
                                 <div style="width: 100%; display: flex; align-items: center;">
-                                    <div class="schedule-line" id="line{{forloop.counter|add:"-1"}}"></div>
-                                    <div class="schedule-bubble" id="bubble{{forloop.counter|add:"-1"}}">{{schedulentry.start_time|time:"g:i A"}} - {{schedulentry.end_time|time:"g:i A"}}</div>
+                                    {% with forloop.parentloop.counter|add:"-1" as parentLoop  %}
+                                    {% with scheduleDateLengths|get_item:parentLoop as val %}
+                                    <div class="schedule-line" id="line{{forloop.counter|add:val}}"></div>
+                                    <div class="schedule-bubble" id="bubble{{forloop.counter|add:val}}">{{schedulentry.start_time|time:"g:i A"}} - {{schedulentry.end_time|time:"g:i A"}}</div>
+                                    {% endwith %}
+                                    {% endwith %}
                                 </div>
                                 <div style="width: 100%; text-align: right; margin-top: 5px;">{{schedulentry.event_title}}</div>
                             </div>
@@ -91,7 +101,7 @@
         document.getElementById("circle" + index).style.backgroundColor = color;
         document.getElementById("line" + index).style.borderColor = color;
         if(index > 0) {
-            document.getElementById("verline" + index).style.borderColor = color;
+            document.getElementById("verline" + (index-1)).style.borderColor = color;
         }
         // console.log(callerName);
         {% comment %} for (var i = 0; i < document.getElementsByClassName("schedule-bubble").length; i++) {
@@ -107,117 +117,35 @@
         } {% endcomment %}
     }
     function resetStatusColors() {
+        try{
         for(var i = 0; i < {{schedule|length|add:"-1"}}; i++) {
-            console.log(i);
+            {% comment %} console.log(i); {% endcomment %}
             setStatusColor(i, "#000000");
         }
     }
+    catch{}
+    }
     function fillStatusColors(endIndex) {
+        try{
         resetStatusColors();
-        setStatusColor(endIndex, "#d7db2c");
         for (var i = endIndex - 1; i >= 0; i--) {
             setStatusColor(i, "#35599b");
         }
+        setStatusColor(endIndex, "#d7db2c");
     }
-    // background loop to check for current status of schedule
-    {% comment %} setInterval(function () {
-        // console.log(cd);
-        // To test the indicator features, comment var cd = new Date(); and uncomment the line below it
-        var cd = new Date();
-        // var cd = new Date("19 April 2024, 4:30 PM");
-        if (cd.getDate() == (new Date(day1Date)).getDate() && cd.getMonth() == (new Date(day1Date)).getMonth() && cd.getFullYear() == (new Date(day1Date)).getFullYear()) {
-            // Call day 2 reset function
-            resetStatusColor(2);
-            if (cd.getTime() < (new Date(day1Date + " {{ day1_1_start }} {{ day1_1_start_ampm }}"))) {
-                resetStatusColor(1);
-                resetStatusColor(2);
-            }
-            else if (cd.getTime() >= (new Date(day1Date + " {{ day1_1_start }} {{ day1_1_start_ampm }}")) && cd.getTime() <= (new Date(day1Date + " {{ day1_1_end }}"))) {
-                resetStatusColor(1);
-                setStatusColor(0, "#d7db2c");
-            }
-            else if (cd.getTime() >= (new Date(day1Date + " {{ day1_2_start }} {{ day1_2_start_ampm }}")) && cd.getTime() <= (new Date(day1Date + " {{ day1_2_end }}"))) {
-                resetStatusColor(1)
-                fillStatusColors(1);
-            }
-            else if (cd.getTime() >= (new Date(day1Date + " {{ day1_3_start }} {{ day1_3_start_ampm }}")) && cd.getTime() <= (new Date(day1Date + " {{ day1_3_end }}"))) {
-                resetStatusColor(1);
-                fillStatusColors(2);
-            }
-            else if (cd.getTime() >= (new Date(day1Date + " {{ day1_4_start }} {{ day1_4_start_ampm }}")) && cd.getTime() <= (new Date(day1Date + " {{ day1_4_end }}"))) {
-                resetStatusColor(1);
-                fillStatusColors(3);
-            }
-            else if (cd.getTime() >= (new Date(day1Date + " {{ day1_5_start }} {{ day1_5_start_ampm }}")) && cd.getTime() <= (new Date(day1Date + " {{ day1_5_end }}"))) {
-                resetStatusColor(1);
-                fillStatusColors(4);
-            }
-
-            else {
-                resetStatusColor(1);
-                setStatusColor(0, "#35599b");
-                setStatusColor(1, "#35599b");
-                setStatusColor(2, "#35599b");
-                setStatusColor(3, "#35599b");
-                setStatusColor(4, "#35599b");
+    catch{}
+    }
+    var times = [{% for entry in schedule %}new Date("{{entry.date|date:"j F Y"}} {{entry.start_time|time:"g:i A"}}"),{% endfor %}new Date("{{schedule.last.date|date:"j F Y"}} {{schedule.last.end_time|time:"g:i A"}}")]
+    setInterval(function() {
+        var now = Date.now();
+        //var now = new Date("15 January 2025 5:15 PM").getTime()
+        for(var i = 0; i < times.length; i++) {
+            if(now > times[i].getTime()) {
+                // console.log(i);
+                fillStatusColors(i);
             }
         }
-        // March 2nd, 2024
-        //      | Make sure it is 2| Make sure it is march| make sure it is 2024
-        else if (cd.getDate() == (new Date(day2Date)).getDate() && cd.getMonth() == (new Date(day2Date)).getMonth() && cd.getFullYear() == (new Date(day2Date)).getFullYear()) {
-            // Make sure day1 is marked as complete
-            setStatusColor(0, "#35599b");
-            setStatusColor(1, "#35599b");
-            setStatusColor(2, "#35599b");
-            setStatusColor(3, "#35599b");
-            setStatusColor(4, "#35599b");
-            //  11:30AM - 1:00PM   MARCH 2
-            if (cd.getTime() < (new Date(day2Date + " {{ day2_1_start }} {{ day2_1_start_ampm }}")).getTime()) {
-                resetStatusColor(2);
-            }
-            else if (cd.getTime() >= (new Date(day2Date + " {{ day2_1_start }} {{ day2_1_start_ampm }}")) && cd.getTime() <= (new Date(day2Date + " {{ day2_1_end }}"))) {
-                resetStatusColor(2);
-                fillStatusColors(5);
-            }
-            // 1:00PM - 1:30PM   MARCH 2
-            else if (cd.getTime() >= (new Date(day2Date + " {{ day2_2_start }} {{ day2_2_start_ampm }}")) && cd.getTime() <= (new Date(day2Date + " {{ day2_2_end }}"))) {
-                resetStatusColor(2);
-                fillStatusColors(6);
-            }
-            // 1:30PM - 3:00PM   MARCH 2
-            else if (cd.getTime() >= (new Date(day2Date + " {{ day2_3_start }} {{ day2_3_start_ampm }}")) && cd.getTime() <= (new Date(day2Date + " {{ day2_3_end }}"))) {
-                resetStatusColor(2);
-                fillStatusColors(7);
-            }
-            // 3:00PM - 3:30PM   MARCH 2
-            else if (cd.getTime() >= (new Date(day2Date + " {{ day2_4_start }} {{ day2_4_start_ampm }}")) && cd.getTime() <= (new Date(day2Date + " {{ day2_4_end }}"))) {
-                resetStatusColor(2);
-                fillStatusColors(8);
-            }
-            else {
-                setStatusColor(0, "#35599b");
-                setStatusColor(1, "#35599b");
-                setStatusColor(2, "#35599b");
-                setStatusColor(3, "#35599b");
-                setStatusColor(4, "#35599b");
-                setStatusColor(5, "#35599b");
-                setStatusColor(6, "#35599b");
-                setStatusColor(7, "#35599b");
-                setStatusColor(8, "#35599b");
-            }
-        }
-        else if(cd.getDate() > (new Date(day2Date)).getDate() || cd.getMonth() > (new Date(day2Date)).getMonth() || cd.getFullYear() > (new Date(day2Date)).getFullYear()) {
-            fillStatusColors(8);
-            setStatusColor(8, "#35599b");
-        }
-        else {
-            // on the occasion that neither date is met, no modification is made (day1 not complete and day2 not complete images are shown by default as set in the HTML) and current date is reported to the console
-            // console.log(cd);
-            // console.log("Date:", cd.getDate(), cd.getDate() == 1)
-            // console.log("Month:", cd.getMonth(), cd.getMonth() == 3)
-            // console.log("Year:", cd.getFullYear(), cd.getFullYear() == 2024)
-        }
-    }, 1000); {% endcomment %}
+    }, 500);
 </script>
 
 {%endblock%}

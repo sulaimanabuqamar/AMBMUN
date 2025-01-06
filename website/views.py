@@ -27,6 +27,7 @@ def Schedule(request):
         temp[pair["Key"]] = pair["Value"]
     temp["schedule"] = ScheduleEntry.objects.all().order_by("date").order_by("start_time")
     dates = []
+    datelengths = [-1]
     privdates  = []
     for entry in temp["schedule"]:
         if entry.date not in privdates:
@@ -35,9 +36,11 @@ def Schedule(request):
                 if ent.date == entry.date:
                     date.append(ent)
             dates.append(date)
+            datelengths.append(len(date)-1)
             privdates.append(entry.date)
-    print(len(dates))
+    print(datelengths)
     temp["scheduleDates"] = dates
+    temp["scheduleDateLengths"] = datelengths
     return render(request, "schedule.html", temp)
 
 def Rules(request):
