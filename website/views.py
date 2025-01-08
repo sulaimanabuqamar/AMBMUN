@@ -17,6 +17,19 @@ def Home(request):
     for pair in miscs.values():
         temp[pair["Key"]] = pair["Value"]
     temp.update({'board_members': board_members})
+    temp["schedule"] = ScheduleEntry.objects.all().order_by("date").order_by("start_time")
+    dates = []
+    datelengths = [-1]
+    privdates  = []
+    for entry in temp["schedule"].order_by("date"):
+        if entry.date not in privdates:
+            # date = []
+            # for ent in temp["schedule"]:
+            #     if ent.date == entry.date:
+            #         date.append(ent)
+            dates.append(entry)
+            privdates.append(entry.date)
+    temp["scheduleDates"] = dates
     return render(request, "index.html", temp)
 
 def Schedule(request):

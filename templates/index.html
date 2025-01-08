@@ -16,8 +16,8 @@
                 <span style="text-align: center; font-weight: 500; font-family: inter; font-size: 41px;">Model United
                     Nations</span>
             </h1>
-            <h3 style="text-align: center; font-size: 20px; font-family: inter; font-weight: 200;" id="homepagedate">April 19<sup>th</sup> & 20<sup>th</sup>
-                <script>
+            <h3 style="text-align: center; font-size: 20px; font-family: inter; font-weight: 200;" id="homepagedate">{% for date in scheduleDates %}{{date.date|date:"j"}}<sup>{{date.date|date:"S"}}</sup>{{date.date|date:"F"}}{% if forloop.counter != scheduleDates|length %} & {% endif %}{% endfor %}</h3>
+                {% comment %} <script>
                     function formatSuperscript(value) {
                         if(value == 1) {
                             return "<sup>st</sup>"
@@ -43,7 +43,7 @@
                     else {
                         hd.innerHTML = months[day1.getMonth()] + " " + day1.getDate() + formatSuperscript(day1.getDate());
                     }
-                </script>
+                </script> {% endcomment %}
             </h3>
             <!-- THE HTML PART OF THE CLOCK SHOULD NOT BE MODIFIED, FOR MODIFICATION, MODIFY THE JS PART, CHECK NEXT COMMENT FOR INFO -->
             <div class="centerer">
@@ -70,12 +70,13 @@
         </div>
     </div>
     <script>
+        function refreshTimer() {
         // ! THE FOLLOWING FUNCTION IS THE COUNTDOWN FUNCTION, YOU WILL SEE ANOTHER COPY OF IT IN THE SETTIMEOUT FUNCTION, THE FIRST COPY (OUTSIDE THE SETTIMEOUT) IS TO SET THE INITIAL VALUES IMMEDIATELY, THE SETTIMEOUT STARTS THE LOOP FUNCTION
         // BEGIN COUNTDOWN FUNCTION
         var currentdate = new Date();
         // The next line is the countdown target, CHANGE ONLY THE STRING
         // Format for the date func: "<month> <date>, <year> <hour in 24h>:<minute>:<second> GMT<+/-><timezone hour difference>:<timezone minute difference>"
-        var countdowndate = new Date("{{ mun_day_1 }} {{ day1_1_start }} {{ day1_1_start_ampm }} GMT+04:00");
+        var countdowndate = new Date("{{schedule.first.date|date:"j F Y"}} {{schedule.first.start_time|time:"g:i A"}} GMT+04:00");
         const diffTime = Math.abs(countdowndate.getTime() - currentdate.getTime());
         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
         const diffHours = Math.floor(diffTime / (1000 * 60 * 60) % 24);
@@ -95,30 +96,10 @@
             document.getElementById("minutes").innerText = 0;
             document.getElementById("seconds").innerText = 0;
         }
+        }
         // END COUNTDOWN FUNCTION
         // NOTE ANY CHANGES MADE TO EITHER FUNCTION MUST ALSO BE APPLIED TO THE OTHER AS INACCURACIES MAY OCCUR
-        setInterval(function () {
-            var currentdate = new Date();
-            var countdowndate = new Date("{{ mun_day_1 }} {{ day1_1_start }} {{ day1_1_start_ampm }} GMT+04:00");
-            const diffTime = Math.abs(countdowndate.getTime() - currentdate.getTime());
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-            const diffHours = Math.floor(diffTime / (1000 * 60 * 60) % 24);
-            const diffMinutes = Math.floor(diffTime / (1000 * 60) % 60);
-            const diffSeconds = Math.floor(diffTime / 1000 % 60);
-            // console.log(diffDays + " days, " + diffHours + " hours, " + diffMinutes + " minutes, and " + diffSeconds + " seconds");
-            if((countdowndate.getTime() - currentdate.getTime()) >= 0) {
-            document.getElementById("days").innerText = diffDays;
-            document.getElementById("hours").innerText = diffHours;
-            document.getElementById("minutes").innerText = diffMinutes;
-            document.getElementById("seconds").innerText = diffSeconds;
-        }
-        else {
-            document.getElementById("days").innerText = 0;
-            document.getElementById("hours").innerText = 0;
-            document.getElementById("minutes").innerText = 0;
-            document.getElementById("seconds").innerText = 0;
-        }
-        }, 1000);
+        setInterval(refreshTimer, 1000);
     </script>
 </div>
 <!-- this section is not dynamic but editable -->
