@@ -17,7 +17,7 @@ def Home(request):
     for pair in miscs.values():
         temp[pair["Key"]] = pair["Value"]
     temp.update({'board_members': board_members})
-    temp["schedule"] = ScheduleEntry.objects.all().order_by("date").order_by("start_time")
+    temp["schedule"] = ScheduleEntry.objects.all().order_by("start_time").order_by("date")
     dates = []
     datelengths = [-1]
     privdates  = []
@@ -38,7 +38,7 @@ def Schedule(request):
     temp = {}
     for pair in miscs.values():
         temp[pair["Key"]] = pair["Value"]
-    temp["schedule"] = ScheduleEntry.objects.all().order_by("date").order_by("start_time")
+    temp["schedule"] = ScheduleEntry.objects.all().order_by("start_time").order_by("date")
     dates = []
     datelengths = [-1]
     privdates  = []
